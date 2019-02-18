@@ -4,8 +4,41 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="home">Yu-Gi-Oh</a>
+            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-target="#navbarColor03" data-toggle="collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor03">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home">Accueil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Gestionnaire de cartes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Création de decks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Poster mon deck</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Consulter les decks</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
