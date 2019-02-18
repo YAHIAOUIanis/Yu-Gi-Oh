@@ -8,7 +8,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="home">Yu-Gi-Oh</a>
+            <a class="navbar-brand" href="{{ path('home') }}">Yu-Gi-Oh</a>
             <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-target="#navbarColor03" data-toggle="collapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -16,10 +16,10 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="home">Accueil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inscription</a>
+                        <a class="nav-link" href="{{ path('inscription') }}">Inscription</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Connexion</a>

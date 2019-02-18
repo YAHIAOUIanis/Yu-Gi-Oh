@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formInscription 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Hello InscriptionController!{% endblock %}
+
+{% block body %}
+
+    <h1> Inscription </h1>
+
+    {{ form_start(formInscription) }}
+
+    {{ form_row(formInscription.login, {'attr': {'placeholder': "Identifiant"}}) }}
+
+    {{ form_row(formInscription.password) }}
+
+    {{ form_row(formInscription.email, {'attr': {'placeholder': "John17@example.com"}}) }}
+
+    <button type="submit">S'inscrire</button>
+
+
+    {{ form_end(formInscription) }}
+
+{% endblock %}
