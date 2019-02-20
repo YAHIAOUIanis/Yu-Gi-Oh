@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Users;
+use App\Form\InscriptionType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +19,7 @@ class InscriptionController extends AbstractController
     {
         $user = new Users();
 
-        //On setup un formulaire
-        $form = $this->createFormBuilder($user)
-            ->add('login')
-            ->add('password', PasswordType::class)
-            ->add('email')
-            ->getForm();
+        $form = $this->createForm(InscriptionType::class, $user);
 
         $form->handleRequest($request);
 

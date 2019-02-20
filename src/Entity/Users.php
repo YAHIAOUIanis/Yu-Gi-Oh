@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
@@ -18,16 +19,19 @@ class Users
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\Length(min = 8, max = 20)
      */
     private $login;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\Length(min = 8, max = 20)
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\Length(min = 11, max = 30)
      */
     private $email;
 

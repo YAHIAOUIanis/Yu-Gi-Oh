@@ -2,23 +2,25 @@
 
 {% form_theme formInscription 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}Hello InscriptionController!{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
 
-    <h1> Inscription </h1>
+    <div class = "container">
 
-    {{ form_start(formInscription) }}
+        <h1> Inscription </h1>
+        {{ form_start(formInscription) }}
 
-    {{ form_row(formInscription.login, {'attr': {'placeholder': "Identifiant"}}) }}
+        {{ form_row(formInscription.login, {'attr': {'placeholder': "Identifiant"}}) }}
 
-    {{ form_row(formInscription.password) }}
+        {{ form_row(formInscription.password) }}
 
-    {{ form_row(formInscription.email, {'attr': {'placeholder': "John17@example.com"}}) }}
+        {{ form_row(formInscription.email, {'attr': {'placeholder': "John17@example.com"}}) }}
 
-    <button type="submit">S'inscrire</button>
+        <button type="submit">S'inscrire</button>
 
 
-    {{ form_end(formInscription) }}
+        {{ form_end(formInscription) }}
+    </div>
 
 {% endblock %}
