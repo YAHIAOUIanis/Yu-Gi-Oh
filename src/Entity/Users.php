@@ -10,14 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Users
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
     private $id;
 
     /**
+     * @ORM\Id()
      * @ORM\Column(type="string", length=20)
      * @Assert\Length(min = 8, max = 20)
      */
@@ -39,11 +35,6 @@ class Users
      * @ORM\Column(type="boolean")
      */
     private $admin;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getLogin(): ?string
     {

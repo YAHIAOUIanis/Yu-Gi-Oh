@@ -19,15 +19,17 @@ class InscriptionController extends AbstractController
     {
         $user = new Users();
 
-        $form = $this->createForm(InscriptionType::class, $user);
+        $form = $this->createForm(InscriptionType::class, $user)
+        ->add('password', PasswordType::class);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $user->setAdmin(false);
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('home/home.html.twig');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('inscription/inscription.html.twig', [
