@@ -12,8 +12,8 @@
                 'length' => [
                     1 => 20,
                 ],
-                'max' => [
-                    2 => 20,
+                'minMessage' => [
+                    2 => 'L\'identifiant doit faire au moins 8 caractères',
                 ],
                 'min' => [
                     2 => 8,

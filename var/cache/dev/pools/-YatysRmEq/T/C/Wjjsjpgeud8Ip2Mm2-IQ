@@ -11,8 +11,8 @@
                 'length' => [
                     20,
                 ],
-                'max' => [
-                    1 => 20,
+                'minMessage' => [
+                    1 => 'Le mot de passe doit faire au moins 8 caractères',
                 ],
                 'min' => [
                     1 => 8,
