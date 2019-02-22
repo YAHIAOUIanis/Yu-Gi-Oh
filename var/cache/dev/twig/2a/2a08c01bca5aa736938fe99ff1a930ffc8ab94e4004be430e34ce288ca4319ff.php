@@ -1,6 +1,6 @@
 <?php
 
-/* home/index.html.twig */
+/* home/connexion.html.twig */
 class __TwigTemplate_a55870c9e064a7a433094ecbd63917b39bb5554ca4cd6378b549a5f0b879a198 extends Twig_Template
 {
     private $source;
@@ -20,7 +20,7 @@ class __TwigTemplate_a55870c9e064a7a433094ecbd63917b39bb5554ca4cd6378b549a5f0b87
     protected function doDisplay(array $context, array $blocks = [])
     {
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "home/index.html.twig"));
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "home/connexion.html.twig"));
 
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -29,7 +29,7 @@ class __TwigTemplate_a55870c9e064a7a433094ecbd63917b39bb5554ca4cd6378b549a5f0b87
 
     public function getTemplateName()
     {
-        return "home/index.html.twig";
+        return "home/connexion.html.twig";
     }
 
     public function getDebugInfo()
@@ -39,6 +39,6 @@ class __TwigTemplate_a55870c9e064a7a433094ecbd63917b39bb5554ca4cd6378b549a5f0b87
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "home/index.html.twig", "C:\\Users\\SmartGhost\\Yu-Gi-Oh\\templates\\home\\index.html.twig");
+        return new Twig_Source("", "home/connexion.html.twig", "C:\\Users\\SmartGhost\\Yu-Gi-Oh\\templates\\home\\connexion.html.twig");
     }
 }

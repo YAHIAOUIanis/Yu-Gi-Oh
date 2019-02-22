@@ -20,6 +20,8 @@ class srcApp_KernelDevDebugContainerUrlGenerator extends Symfony\Component\Routi
         $this->defaultLocale = $defaultLocale;
         if (null === self::$declaredRoutes) {
             self::$declaredRoutes = [
+        'connexion' => [[], ['_controller' => 'App\\Controller\\ConnexionController::connexion'], [], [['text', '/connexion']], [], []],
+        'deconnexion' => [[], ['_controller' => 'App\\Controller\\ConnexionController::deconnexion'], [], [['text', '/deconnexion']], [], []],
         'home' => [[], ['_controller' => 'App\\Controller\\HomeController::home'], [], [['text', '/']], [], []],
         'inscription' => [[], ['_controller' => 'App\\Controller\\InscriptionController::inscription'], [], [['text', '/inscription']], [], []],
         '_twig_error_test' => [['code', '_format'], ['_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], []],

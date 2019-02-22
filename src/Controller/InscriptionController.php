@@ -28,12 +28,14 @@ class InscriptionController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $user->setAdmin(false);
+            //encodage
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $manager->persist($user);
+            //Execution des requêtes SQL
             $manager->flush();
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('connexion');
         }
 
         return $this->render('inscription/inscription.html.twig', [
