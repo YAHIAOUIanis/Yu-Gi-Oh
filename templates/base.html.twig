@@ -8,7 +8,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{ path('home') }}">Yu-Gi-Oh</a>
+            <a class="navbar-brand" href="{{ path('home') }}">Yu-Gi-Oh! Builder</a>
             <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-target="#navbarColor03" data-toggle="collapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -16,32 +16,32 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Gestionnaire de cartes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Création de decks</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Poster mon deck</a>
-                    </li>
-                    <li class="nav-item" class = "navbar-nav ml-auto">
-                        <a class="nav-link" href="#">Consulter les decks</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item" class = "navbar-nav ml-auto">
-                        <a class="nav-link" href="{{ path('inscription') }}">Inscription</a>
+                        <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     {% if app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('deconnexion') }}">Déconnexion</a>
+                        <a class="nav-link" href="{{ path('manager') }}">Card list</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Deck Builder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Post your deck</a>
+                    </li>
+                    <li class="nav-item" class = "navbar-nav ml-auto">
+                        <a class="nav-link" href="#">Consult people's deck</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('deconnexion') }}">Logout</a>
                     </li>
                     {% else %}
+                        <li class="nav-item" class = "navbar-nav ml-auto">
+                            <a class="nav-link" href="{{ path('inscription') }}">Sign up</a>
+                        </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('connexion') }}">Connexion</a>
+                        <a class="nav-link" href="{{ path('connexion') }}">Login</a>
                     </li>
                     {% endif %}
                 </ul>

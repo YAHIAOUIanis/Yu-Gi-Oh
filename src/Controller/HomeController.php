@@ -14,8 +14,8 @@ class HomeController extends AbstractController
     {
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController',
-            'title' => 'Gestionnaire de cartes Yu-Gi-Oh',
-            'accueil' => 'Accueil'
+            'title' => 'Welcome to Yu-Gi-Oh! Deck Builder',
+            'acc' => 'Home'
         ]);
     }
 }

@@ -1,6 +1,7 @@
 security:
     encoders:
         App\Entity\User:
+            # On utlise l'algorithme bcrypt pour encoder le mot de passe
             algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:

@@ -19,6 +19,7 @@ class srcApp_KernelDevDebugContainerUrlMatcher extends Symfony\Bundle\FrameworkB
             '/deconnexion' => [[['_route' => 'deconnexion', '_controller' => 'App\\Controller\\ConnexionController::deconnexion'], null, null, null, false, false, null]],
             '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\HomeController::home'], null, null, null, false, false, null]],
             '/inscription' => [[['_route' => 'inscription', '_controller' => 'App\\Controller\\InscriptionController::inscription'], null, null, null, false, false, null]],
+            '/manager' => [[['_route' => 'manager', '_controller' => 'App\\Controller\\ManagerController::manager'], null, null, null, false, false, null]],
         ];
         $this->regexpList = [
             0 => '{^(?'

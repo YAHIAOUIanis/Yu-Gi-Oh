@@ -24,6 +24,7 @@ class srcApp_KernelDevDebugContainerUrlGenerator extends Symfony\Component\Routi
         'deconnexion' => [[], ['_controller' => 'App\\Controller\\ConnexionController::deconnexion'], [], [['text', '/deconnexion']], [], []],
         'home' => [[], ['_controller' => 'App\\Controller\\HomeController::home'], [], [['text', '/']], [], []],
         'inscription' => [[], ['_controller' => 'App\\Controller\\InscriptionController::inscription'], [], [['text', '/inscription']], [], []],
+        'manager' => [[], ['_controller' => 'App\\Controller\\ManagerController::manager'], [], [['text', '/manager']], [], []],
         '_twig_error_test' => [['code', '_format'], ['_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], []],
     ];
         }

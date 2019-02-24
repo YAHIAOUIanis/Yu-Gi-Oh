@@ -13,7 +13,7 @@ class ConnexionController extends AbstractController
     public function connexion()
     {
         return $this->render('connexion/connexion.html.twig', [
-            "title" => "Connexion"
+            "title" => "Login"
             ]);
     }
 
