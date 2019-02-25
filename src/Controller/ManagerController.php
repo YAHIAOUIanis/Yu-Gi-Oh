@@ -14,7 +14,7 @@ class ManagerController extends AbstractController
     public function manager()
     {
         $repo = $this->getDoctrine()->getRepository(Cards::class);
-        $cards = $repo->findAll();
+        $cards = $repo->findByName();
 
         return $this->render('manager/manager.html.twig', [
             'cards' => $cards,

@@ -23,7 +23,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @Assert\EqualTo(propertyPath="password")
+     * @Assert\EqualTo(propertyPath="password", message="Votre mot de passe doit correspondre")
      */
     private $confirm_password;
 

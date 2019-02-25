@@ -6,6 +6,7 @@ use App\Entity\Cards;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+
 /**
  * @method Cards|null find($id, $lockMode = null, $lockVersion = null)
  * @method Cards|null findOneBy(array $criteria, array $orderBy = null)
@@ -47,4 +48,16 @@ class CardsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /*public function findByAtk($atk): array
+    {
+        return ($this->createQueryBuilder('c')
+            ->andWhere('c.atk > :atk')
+            ->setParameter('atk', $atk)
+            ->orderBy('c.atk', 'ASC')
+            ->getQuery())
+            ->execute()
+            ;
+    }*/
+
 }
