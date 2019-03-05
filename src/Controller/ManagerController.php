@@ -43,11 +43,12 @@ class ManagerController extends AbstractController
     }
 
     /**
-     * @Route("/cards", name="manager.show")
+     * @Route("/card{id}", name="manager.show")
      */
-    public function show($id = 2)
+    public function show($id)
     {
         $c = $this->repo->find($id);
+
         return $this->render('description/description.html.twig', [
             'card' => $c
         ]);

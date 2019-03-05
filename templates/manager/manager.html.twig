@@ -6,7 +6,7 @@
     <div class="container">
         <h1>{{ title }}</h1>
         {% for card in cards %}
-            <a href="{{ path('manager.show', {'c': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
+            <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
         {% endfor %}
     </div>
 {% endblock %}
