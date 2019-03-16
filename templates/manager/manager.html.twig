@@ -8,5 +8,14 @@
         {% for card in cards %}
             <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
         {% endfor %}
+        <br><br> <!-- A MODIFIER !-->
+        <div class="jumbotron">
+            {{ form_start(form) }}
+
+            {{ form_rest(form) }}
+                <button class="btn btn-primary">Rechercher</button>
+
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}

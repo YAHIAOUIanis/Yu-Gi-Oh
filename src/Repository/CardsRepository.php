@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Cards;
+use App\Entity\Cardsearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 
@@ -59,5 +62,54 @@ class CardsRepository extends ServiceEntityRepository
             ->execute()
             ;
     }*/
+
+    public function findAllCards(Cardsearch $search): array
+    {
+        $query = $this->findAllQuery();
+
+        if($search->getMaxAtk()){
+            $query = $query
+                ->andwhere('c.atk <= :maxAtk')
+                ->setParameter('maxAtk', $search->getMaxAtk());
+        }
+
+        if($search->getMinAtk()){
+            $query = $query
+                ->andwhere('c.atk >= :minAtk')
+                ->setParameter('minAtk', $search->getMinAtk());
+        }
+
+        if($search->getMinDef()){
+            $query = $query
+                ->andwhere('c.def <= :minDef')
+                ->setParameter('minDef', $search->getMinDef());
+        }
+
+        if($search->getMaxDef()){
+            $query = $query
+                ->andwhere('c.def >= :maxDef')
+                ->setParameter('maxDef', $search->getMaxDef());
+        }
+
+        if($search->getMinLevel()){
+            $query = $query
+                ->andwhere('c.level >= :minLevel')
+                ->setParameter('minLevel', $search->getMinLevel());
+        }
+
+        if($search->getMaxLevel()){
+            $query = $query
+                ->andwhere('c.level <= :maxLevel')
+                ->setParameter('maxLevel', $search->getMaxLevel());
+        }
+
+        return $query->getQuery()->execute();
+    }
+
+    public function findAllQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+            ->andwhere('c.quantity = 1');
+    }
 
 }

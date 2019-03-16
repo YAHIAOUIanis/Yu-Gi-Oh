@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Cardsearch;
+use App\Form\CardSearchType;
 use App\Repository\CardsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,14 +32,19 @@ class ManagerController extends AbstractController
     /**
      * @Route("/manager", name="manager")
      */
-    public function manager()
+    public function manager(Request $request)
     {
         $this->repo = $this->getDoctrine()->getRepository(Cards::class);
-        $cards = $this->repo->findAll();
+        $search = new Cardsearch();
+        $form = $this->createForm(CardSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $cards = $this->repo->findAllCards($search);
 
         return $this->render('manager/manager.html.twig', [
             'cards' => $cards,
-            'title' => 'Card list Yu-Gi-Oh!'
+            'title' => 'Card list Yu-Gi-Oh!',
+            'form' => $form->createView()
         ]);
     }
 
