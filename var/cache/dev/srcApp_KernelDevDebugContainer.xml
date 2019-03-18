@@ -19,6 +19,8 @@
       <parameter key="SecurityBundle">Symfony\Bundle\SecurityBundle\SecurityBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
+      <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
+      <parameter key="SwiftmailerBundle">Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -61,12 +63,21 @@
         <parameter key="path">C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\monolog-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\MonologBundle</parameter>
       </parameter>
+      <parameter key="FOSUserBundle" type="collection">
+        <parameter key="path">C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle</parameter>
+        <parameter key="namespace">FOS\UserBundle</parameter>
+      </parameter>
+      <parameter key="SwiftmailerBundle" type="collection">
+        <parameter key="path">C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\swiftmailer-bundle</parameter>
+        <parameter key="namespace">Symfony\Bundle\SwiftmailerBundle</parameter>
+      </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">srcApp_KernelDevDebugContainer</parameter>
     <parameter key="container.dumper.inline_class_loader">true</parameter>
     <parameter key="env(DATABASE_URL)"></parameter>
-    <parameter key="fragment.renderer.hinclude.global_template"></parameter>
+    <parameter key="locale">en</parameter>
+    <parameter key="fragment.renderer.hinclude.global_template">null</parameter>
     <parameter key="fragment.path">/_fragment</parameter>
     <parameter key="kernel.secret">%env(APP_SECRET)%</parameter>
     <parameter key="kernel.http_method_override">true</parameter>
@@ -86,9 +97,19 @@
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="form.type_extension.csrf.enabled">true</parameter>
     <parameter key="form.type_extension.csrf.field_name">_token</parameter>
+    <parameter key="templating.loader.cache.path">null</parameter>
+    <parameter key="templating.engines" type="collection">
+      <parameter>twig</parameter>
+      <parameter>php</parameter>
+    </parameter>
+    <parameter key="templating.helper.form.resources" type="collection">
+      <parameter>FrameworkBundle:Form</parameter>
+    </parameter>
     <parameter key="validator.mapping.cache.prefix"></parameter>
     <parameter key="validator.mapping.cache.file">C:\Users\SmartGhost\Yu-Gi-Oh\var\cache\dev/validation.php</parameter>
     <parameter key="validator.translation_domain">validators</parameter>
+    <parameter key="translator.logging">false</parameter>
+    <parameter key="translator.default_path">C:\Users\SmartGhost\Yu-Gi-Oh/translations</parameter>
     <parameter key="profiler_listener.only_exceptions">false</parameter>
     <parameter key="profiler_listener.only_master_requests">false</parameter>
     <parameter key="profiler.storage.dsn">file:C:\Users\SmartGhost\Yu-Gi-Oh\var\cache\dev/profiler</parameter>
@@ -228,7 +249,14 @@
     <parameter key="doctrine_migrations.organize_migrations">false</parameter>
     <parameter key="security.authentication.trust_resolver.anonymous_class">null</parameter>
     <parameter key="security.authentication.trust_resolver.rememberme_class">null</parameter>
-    <parameter key="security.role_hierarchy.roles" type="collection"/>
+    <parameter key="security.role_hierarchy.roles" type="collection">
+      <parameter key="ROLE_ADMIN" type="collection">
+        <parameter>ROLE_USER</parameter>
+      </parameter>
+      <parameter key="ROLE_SUPER_ADMIN" type="collection">
+        <parameter>ROLE_ADMIN</parameter>
+      </parameter>
+    </parameter>
     <parameter key="security.access.denied_url">null</parameter>
     <parameter key="security.authentication.manager.erase_credentials">true</parameter>
     <parameter key="security.authentication.session_strategy.strategy">migrate</parameter>
@@ -254,6 +282,61 @@
         </parameter>
       </parameter>
     </parameter>
+    <parameter key="fos_user.backend_type_orm">true</parameter>
+    <parameter key="fos_user.security.interactive_login_listener.class">FOS\UserBundle\EventListener\LastLoginListener</parameter>
+    <parameter key="fos_user.security.login_manager.class">FOS\UserBundle\Security\LoginManager</parameter>
+    <parameter key="fos_user.resetting.email.template">@FOSUser/Resetting/email.txt.twig</parameter>
+    <parameter key="fos_user.registration.confirmation.template">@FOSUser/Registration/email.txt.twig</parameter>
+    <parameter key="fos_user.storage">orm</parameter>
+    <parameter key="fos_user.firewall_name">main</parameter>
+    <parameter key="fos_user.model_manager_name">null</parameter>
+    <parameter key="fos_user.model.user.class">App\Entity\User</parameter>
+    <parameter key="fos_user.profile.form.type">FOS\UserBundle\Form\Type\ProfileFormType</parameter>
+    <parameter key="fos_user.profile.form.name">fos_user_profile_form</parameter>
+    <parameter key="fos_user.profile.form.validation_groups" type="collection">
+      <parameter>Profile</parameter>
+      <parameter>Default</parameter>
+    </parameter>
+    <parameter key="fos_user.registration.confirmation.from_email" type="collection">
+      <parameter key="brunel.jeremy9@gmail.com">brunel.jeremy9@gmail.com</parameter>
+    </parameter>
+    <parameter key="fos_user.registration.confirmation.enabled">false</parameter>
+    <parameter key="fos_user.registration.form.type">FOS\UserBundle\Form\Type\RegistrationFormType</parameter>
+    <parameter key="fos_user.registration.form.name">fos_user_registration_form</parameter>
+    <parameter key="fos_user.registration.form.validation_groups" type="collection">
+      <parameter>Registration</parameter>
+      <parameter>Default</parameter>
+    </parameter>
+    <parameter key="fos_user.change_password.form.type">FOS\UserBundle\Form\Type\ChangePasswordFormType</parameter>
+    <parameter key="fos_user.change_password.form.name">fos_user_change_password_form</parameter>
+    <parameter key="fos_user.change_password.form.validation_groups" type="collection">
+      <parameter>ChangePassword</parameter>
+      <parameter>Default</parameter>
+    </parameter>
+    <parameter key="fos_user.resetting.email.from_email" type="collection">
+      <parameter key="brunel.jeremy9@gmail.com">brunel.jeremy9@gmail.com</parameter>
+    </parameter>
+    <parameter key="fos_user.resetting.retry_ttl">7200</parameter>
+    <parameter key="fos_user.resetting.token_ttl">86400</parameter>
+    <parameter key="fos_user.resetting.form.type">FOS\UserBundle\Form\Type\ResettingFormType</parameter>
+    <parameter key="fos_user.resetting.form.name">fos_user_resetting_form</parameter>
+    <parameter key="fos_user.resetting.form.validation_groups" type="collection">
+      <parameter>ResetPassword</parameter>
+      <parameter>Default</parameter>
+    </parameter>
+    <parameter key="swiftmailer.mailer.default.transport.name">dynamic</parameter>
+    <parameter key="swiftmailer.spool.default.memory.path">C:\Users\SmartGhost\Yu-Gi-Oh\var\cache\dev/swiftmailer/spool/default</parameter>
+    <parameter key="swiftmailer.mailer.default.spool.enabled">true</parameter>
+    <parameter key="swiftmailer.mailer.default.plugin.impersonate">null</parameter>
+    <parameter key="swiftmailer.mailer.default.single_address">null</parameter>
+    <parameter key="swiftmailer.mailer.default.delivery.enabled">true</parameter>
+    <parameter key="swiftmailer.spool.enabled">true</parameter>
+    <parameter key="swiftmailer.delivery.enabled">true</parameter>
+    <parameter key="swiftmailer.single_address">null</parameter>
+    <parameter key="swiftmailer.mailers" type="collection">
+      <parameter key="default">swiftmailer.mailer.default</parameter>
+    </parameter>
+    <parameter key="swiftmailer.default_mailer">default</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -299,6 +382,10 @@
         <parameter>cache</parameter>
         <parameter>@WebProfiler/Collector/cache.html.twig</parameter>
       </parameter>
+      <parameter key="data_collector.translation" type="collection">
+        <parameter>translation</parameter>
+        <parameter>@WebProfiler/Collector/translation.html.twig</parameter>
+      </parameter>
       <parameter key="data_collector.security" type="collection">
         <parameter>security</parameter>
         <parameter>@Security/Collector/security.html.twig</parameter>
@@ -310,6 +397,10 @@
       <parameter key="data_collector.doctrine" type="collection">
         <parameter>db</parameter>
         <parameter>@Doctrine/Collector/db.html.twig</parameter>
+      </parameter>
+      <parameter key="swiftmailer.data_collector" type="collection">
+        <parameter>swiftmailer</parameter>
+        <parameter>@Swiftmailer/Collector/swiftmailer.html.twig</parameter>
       </parameter>
       <parameter key="data_collector.config" type="collection">
         <parameter>config</parameter>
@@ -468,6 +559,7 @@
         <argument key="debug.stopwatch" type="service" id="debug.stopwatch" on-invalid="ignore_uninitialized"/>
         <argument key="form.type.entity" type="service" id="form.type.entity" on-invalid="ignore_uninitialized"/>
         <argument key="security.token_storage" type="service" id="security.token_storage" on-invalid="ignore_uninitialized"/>
+        <argument key="swiftmailer.email_sender.listener" type="service" id="swiftmailer.email_sender.listener" on-invalid="ignore_uninitialized"/>
       </argument>
       <argument type="collection">
         <argument key="http_exception_listener">reset</argument>
@@ -476,6 +568,7 @@
         <argument key="debug.stopwatch">reset</argument>
         <argument key="form.type.entity">reset</argument>
         <argument key="security.token_storage">setToken</argument>
+        <argument key="swiftmailer.email_sender.listener">reset</argument>
       </argument>
     </service>
     <service id="fragment.handler" class="Symfony\Component\HttpKernel\DependencyInjection\LazyLoadingFragmentHandler" public="false">
@@ -590,6 +683,35 @@
         <argument>router:match</argument>
       </call>
     </service>
+    <service id="console.command.translation_debug" class="Symfony\Bundle\FrameworkBundle\Command\TranslationDebugCommand" public="false">
+      <tag name="console.command" command="debug:translation"/>
+      <argument type="service" id="translator.data_collector"/>
+      <argument type="service" id="translation.reader"/>
+      <argument type="service" id="translation.extractor"/>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh/translations</argument>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh/templates</argument>
+      <call method="setName">
+        <argument>debug:translation</argument>
+      </call>
+    </service>
+    <service id="console.command.translation_update" class="Symfony\Bundle\FrameworkBundle\Command\TranslationUpdateCommand" public="false">
+      <tag name="console.command" command="translation:update"/>
+      <argument type="service" id="translation.writer"/>
+      <argument type="service" id="translation.reader"/>
+      <argument type="service" id="translation.extractor"/>
+      <argument>en</argument>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh/translations</argument>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh/templates</argument>
+      <call method="setName">
+        <argument>translation:update</argument>
+      </call>
+    </service>
+    <service id="console.command.xliff_lint" class="Symfony\Bundle\FrameworkBundle\Command\XliffLintCommand" public="false">
+      <tag name="console.command" command="lint:xliff"/>
+      <call method="setName">
+        <argument>lint:xliff</argument>
+      </call>
+    </service>
     <service id="console.command.yaml_lint" class="Symfony\Bundle\FrameworkBundle\Command\YamlLintCommand" public="false">
       <tag name="console.command" command="lint:yaml"/>
       <call method="setName">
@@ -603,6 +725,7 @@
         <argument>Symfony\Component\Form\Extension\Core\Type</argument>
         <argument>App\Form</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
+        <argument>FOS\UserBundle\Form\Type</argument>
       </argument>
       <argument type="collection">
         <argument>App\Form\CardSearchType</argument>
@@ -610,6 +733,11 @@
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type\EntityType</argument>
+        <argument>FOS\UserBundle\Form\Type\UsernameFormType</argument>
+        <argument>FOS\UserBundle\Form\Type\ProfileFormType</argument>
+        <argument>FOS\UserBundle\Form\Type\RegistrationFormType</argument>
+        <argument>FOS\UserBundle\Form\Type\ChangePasswordFormType</argument>
+        <argument>FOS\UserBundle\Form\Type\ResettingFormType</argument>
       </argument>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type\TransformationFailureExtension</argument>
@@ -617,6 +745,7 @@
         <argument>Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension</argument>
         <argument>Symfony\Component\Form\Extension\Validator\Type\RepeatedTypeValidatorExtension</argument>
         <argument>Symfony\Component\Form\Extension\Validator\Type\SubmitTypeValidatorExtension</argument>
+        <argument>Symfony\Component\Form\Extension\Validator\Type\UploadValidatorExtension</argument>
         <argument>Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension</argument>
         <argument>Symfony\Component\Form\Extension\DataCollector\Type\DataCollectorTypeExtension</argument>
       </argument>
@@ -774,6 +903,10 @@
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
       </argument>
     </service>
+    <service id="identity_translator" class="Symfony\Component\Translation\IdentityTranslator" public="false"/>
+    <service id="translator.selector" class="Symfony\Component\Translation\MessageSelector" public="false">
+      <deprecated>The "%service_id%" service is deprecated since Symfony 4.2, use "identity_translator" instead.</deprecated>
+    </service>
     <service id=".1_NativeFileSessionHandler~KPdGOif" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler" public="false">
       <argument>C:\Users\SmartGhost\Yu-Gi-Oh\var\cache\dev/sessions</argument>
     </service>
@@ -845,12 +978,13 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.PmTT3Zk"/>
+      <argument type="service" id=".service_locator.iHaQ6M6"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
           <argument type="service" id="form.type_extension.form.http_foundation"/>
           <argument type="service" id="form.type_extension.form.validator"/>
+          <argument type="service" id="form.type_extension.upload.validator"/>
           <argument type="service" id="form.type_extension.csrf"/>
           <argument type="service" id="form.type_extension.form.data_collector"/>
         </argument>
@@ -888,7 +1022,7 @@
     </service>
     <service id="form.type_extension.form.transformation_failure_handling" class="Symfony\Component\Form\Extension\Core\Type\TransformationFailureExtension" public="false">
       <tag name="form.type_extension" extended_type="Symfony\Component\Form\Extension\Core\Type\FormType" extended-type="Symfony\Component\Form\Extension\Core\Type\FormType"/>
-      <argument>null</argument>
+      <argument type="service" id="translator.data_collector" on-invalid="ignore"/>
     </service>
     <service id="form.type_extension.form.http_foundation" class="Symfony\Component\Form\Extension\HttpFoundation\Type\FormTypeHttpFoundationExtension" public="false">
       <tag name="form.type_extension"/>
@@ -910,14 +1044,153 @@
     <service id="form.type_extension.submit.validator" class="Symfony\Component\Form\Extension\Validator\Type\SubmitTypeValidatorExtension" public="false">
       <tag name="form.type_extension" extended_type="Symfony\Component\Form\Extension\Core\Type\SubmitType" extended-type="Symfony\Component\Form\Extension\Core\Type\SubmitType"/>
     </service>
+    <service id="form.type_extension.upload.validator" class="Symfony\Component\Form\Extension\Validator\Type\UploadValidatorExtension" public="false">
+      <tag name="form.type_extension"/>
+      <argument type="service" id="translator.data_collector"/>
+      <argument>validators</argument>
+    </service>
     <service id="form.type_extension.csrf" class="Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension" public="false">
       <tag name="form.type_extension"/>
       <argument type="service" id="security.csrf.token_manager"/>
       <argument>true</argument>
       <argument>_token</argument>
-      <argument>null</argument>
+      <argument type="service" id="translator.data_collector" on-invalid="null"/>
       <argument>validators</argument>
       <argument type="service" id="form.server_params"/>
+    </service>
+    <service id="templating.engine.delegating" class="Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine" public="false">
+      <argument type="service" id="service_container"/>
+      <argument type="collection"/>
+      <call method="addEngine">
+        <argument type="service" id="templating.engine.twig"/>
+      </call>
+      <call method="addEngine">
+        <argument type="service" id="templating.engine.php"/>
+      </call>
+    </service>
+    <service id="templating.name_parser" class="Symfony\Bundle\FrameworkBundle\Templating\TemplateNameParser" public="false">
+      <argument type="service" id="kernel"/>
+    </service>
+    <service id="templating.filename_parser" class="Symfony\Bundle\FrameworkBundle\Templating\TemplateFilenameParser" public="false"/>
+    <service id="templating.locator" class="Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator" public="false">
+      <argument type="service" id="file_locator"/>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh\var\cache\dev</argument>
+    </service>
+    <service id="templating.finder" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder" public="false">
+      <argument type="service" id="kernel"/>
+      <argument type="service" id="templating.filename_parser"/>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh\src/Resources</argument>
+    </service>
+    <service id="templating.cache_warmer.template_paths" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer" public="false">
+      <tag name="kernel.cache_warmer" priority="20"/>
+      <argument type="service" id="templating.finder"/>
+      <argument type="service" id="templating.locator"/>
+    </service>
+    <service id="templating.loader.filesystem" class="Symfony\Bundle\FrameworkBundle\Templating\Loader\FilesystemLoader" public="false">
+      <argument type="service" id="templating.locator"/>
+    </service>
+    <service id="templating.loader.cache" class="Symfony\Component\Templating\Loader\CacheLoader" public="false">
+      <tag name="monolog.logger" channel="templating"/>
+      <argument type="service" id="templating.loader.wrapped"/>
+      <argument>null</argument>
+      <call method="setLogger">
+        <argument type="service" id="monolog.logger.templating" on-invalid="ignore"/>
+      </call>
+    </service>
+    <service id="templating.loader.chain" class="Symfony\Component\Templating\Loader\ChainLoader" public="false">
+      <tag name="monolog.logger" channel="templating"/>
+      <call method="setLogger">
+        <argument type="service" id="monolog.logger.templating" on-invalid="ignore"/>
+      </call>
+    </service>
+    <service id="templating.engine.php" class="Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine" public="false">
+      <argument type="service" id="templating.name_parser"/>
+      <argument type="service" id="templating.engine.php.helpers_locator"/>
+      <argument type="service" id="templating.loader.filesystem"/>
+      <argument type="service" id="debug.stopwatch"/>
+      <argument type="service" id="templating.globals"/>
+      <call method="setCharset">
+        <argument>UTF-8</argument>
+      </call>
+      <call method="setHelpers">
+        <argument type="collection">
+          <argument key="slots">templating.helper.slots</argument>
+          <argument key="request">templating.helper.request</argument>
+          <argument key="session">templating.helper.session</argument>
+          <argument key="router">templating.helper.router</argument>
+          <argument key="actions">templating.helper.actions</argument>
+          <argument key="code">templating.helper.code</argument>
+          <argument key="translator">templating.helper.translator</argument>
+          <argument key="form">templating.helper.form</argument>
+          <argument key="stopwatch">templating.helper.stopwatch</argument>
+          <argument key="logout_url">templating.helper.logout_url</argument>
+          <argument key="security">templating.helper.security</argument>
+        </argument>
+      </call>
+    </service>
+    <service id="templating.engine.php.helpers_locator" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="templating.helper.actions" type="service" id="templating.helper.actions"/>
+        <argument key="templating.helper.code" type="service" id="templating.helper.code"/>
+        <argument key="templating.helper.form" type="service" id="templating.helper.form"/>
+        <argument key="templating.helper.logout_url" type="service" id="templating.helper.logout_url"/>
+        <argument key="templating.helper.request" type="service" id="templating.helper.request"/>
+        <argument key="templating.helper.router" type="service" id="templating.helper.router"/>
+        <argument key="templating.helper.security" type="service" id="templating.helper.security"/>
+        <argument key="templating.helper.session" type="service" id="templating.helper.session"/>
+        <argument key="templating.helper.slots" type="service" id="templating.helper.slots"/>
+        <argument key="templating.helper.stopwatch" type="service" id="templating.helper.stopwatch"/>
+        <argument key="templating.helper.translator" type="service" id="templating.helper.translator"/>
+      </argument>
+    </service>
+    <service id="templating.helper.slots" class="Symfony\Component\Templating\Helper\SlotsHelper" public="false">
+      <tag name="templating.helper" alias="slots"/>
+    </service>
+    <service id="templating.helper.request" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\RequestHelper" public="false">
+      <tag name="templating.helper" alias="request"/>
+      <argument type="service" id="request_stack"/>
+    </service>
+    <service id="templating.helper.session" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\SessionHelper" public="false">
+      <tag name="templating.helper" alias="session"/>
+      <argument type="service" id="request_stack"/>
+    </service>
+    <service id="templating.helper.router" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper" public="false">
+      <tag name="templating.helper" alias="router"/>
+      <argument type="service" id="router.default"/>
+    </service>
+    <service id="templating.helper.actions" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\ActionsHelper" public="false">
+      <tag name="templating.helper" alias="actions"/>
+      <argument type="service" id="fragment.handler"/>
+    </service>
+    <service id="templating.helper.code" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\CodeHelper" public="false">
+      <tag name="templating.helper" alias="code"/>
+      <argument type="service" id="debug.file_link_formatter"/>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh</argument>
+      <argument>UTF-8</argument>
+    </service>
+    <service id="templating.helper.translator" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\TranslatorHelper" public="false">
+      <tag name="templating.helper" alias="translator"/>
+      <argument type="service" id="translator.data_collector" on-invalid="null"/>
+    </service>
+    <service id="templating.helper.form" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper" public="false">
+      <tag name="templating.helper" alias="form"/>
+      <argument type="service" id="templating.form.renderer"/>
+    </service>
+    <service id="templating.helper.stopwatch" class="Symfony\Bundle\FrameworkBundle\Templating\Helper\StopwatchHelper" public="false">
+      <tag name="templating.helper" alias="stopwatch"/>
+      <argument type="service" id="debug.stopwatch" on-invalid="ignore"/>
+    </service>
+    <service id="templating.form.engine" class="Symfony\Component\Form\Extension\Templating\TemplatingRendererEngine" public="false">
+      <argument type="service" id="templating.engine.php"/>
+      <argument>%templating.helper.form.resources%</argument>
+    </service>
+    <service id="templating.form.renderer" class="Symfony\Component\Form\FormRenderer" public="false">
+      <argument type="service" id="templating.form.engine"/>
+      <argument type="service" id="security.csrf.token_manager" on-invalid="null"/>
+    </service>
+    <service id="templating.globals" class="Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables" public="false">
+      <argument type="service" id="service_container"/>
     </service>
     <service id=".1_PhpArrayAdapter~d7aQkY7" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" public="false">
       <argument>C:\Users\SmartGhost\Yu-Gi-Oh\var\cache\dev/validation.php</argument>
@@ -928,12 +1201,16 @@
       <call method="setConstraintValidatorFactory">
         <argument type="service" id="validator.validator_factory"/>
       </call>
+      <call method="setTranslator">
+        <argument type="service" id="translator.data_collector"/>
+      </call>
       <call method="setTranslationDomain">
         <argument>validators</argument>
       </call>
       <call method="addXmlMappings">
         <argument type="collection">
           <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/config/validation.xml</argument>
+          <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/config/validation.xml</argument>
         </argument>
       </call>
       <call method="enableAnnotationMapping">
@@ -945,7 +1222,11 @@
       <call method="addObjectInitializers">
         <argument type="collection">
           <argument type="service" id="doctrine.orm.validator_initializer"/>
+          <argument type="service" id="fos_user.validator.initializer"/>
         </argument>
+      </call>
+      <call method="addXmlMapping">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle\DependencyInjection\Compiler/../../Resources/config/storage-validation/orm.xml</argument>
       </call>
       <factory class="Symfony\Component\Validator\Validation" method="createValidatorBuilder"/>
     </service>
@@ -966,6 +1247,600 @@
     <service id="validator.email" class="Symfony\Component\Validator\Constraints\EmailValidator" public="false">
       <tag name="validator.constraint_validator" alias="Symfony\Component\Validator\Constraints\EmailValidator"/>
       <argument>html5</argument>
+    </service>
+    <service id="translator.default" class="Symfony\Bundle\FrameworkBundle\Translation\Translator" public="false">
+      <argument type="service" id=".service_locator.yQVjGlt"/>
+      <argument type="service" id="translator.formatter.default"/>
+      <argument>en</argument>
+      <argument type="collection">
+        <argument key="translation.loader.php" type="collection">
+          <argument>php</argument>
+        </argument>
+        <argument key="translation.loader.yml" type="collection">
+          <argument>yaml</argument>
+          <argument>yml</argument>
+        </argument>
+        <argument key="translation.loader.xliff" type="collection">
+          <argument>xlf</argument>
+          <argument>xliff</argument>
+        </argument>
+        <argument key="translation.loader.po" type="collection">
+          <argument>po</argument>
+        </argument>
+        <argument key="translation.loader.mo" type="collection">
+          <argument>mo</argument>
+        </argument>
+        <argument key="translation.loader.qt" type="collection">
+          <argument>ts</argument>
+        </argument>
+        <argument key="translation.loader.csv" type="collection">
+          <argument>csv</argument>
+        </argument>
+        <argument key="translation.loader.res" type="collection">
+          <argument>res</argument>
+        </argument>
+        <argument key="translation.loader.dat" type="collection">
+          <argument>dat</argument>
+        </argument>
+        <argument key="translation.loader.ini" type="collection">
+          <argument>ini</argument>
+        </argument>
+        <argument key="translation.loader.json" type="collection">
+          <argument>json</argument>
+        </argument>
+      </argument>
+      <argument type="collection">
+        <argument key="cache_dir">C:\Users\SmartGhost\Yu-Gi-Oh\var\cache\dev/translations</argument>
+        <argument key="debug">true</argument>
+        <argument key="resource_files" type="collection">
+          <argument key="af" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.af.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.af.yml</argument>
+          </argument>
+          <argument key="ar" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.ar.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.ar.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.ar.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.ar.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.ar.yml</argument>
+          </argument>
+          <argument key="az" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.az.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.az.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.az.xlf</argument>
+          </argument>
+          <argument key="bg" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.bg.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.bg.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.bg.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.bg.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.bg.yml</argument>
+          </argument>
+          <argument key="ca" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.ca.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.ca.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.ca.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.ca.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.ca.yml</argument>
+          </argument>
+          <argument key="cs" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.cs.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.cs.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.cs.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.cs.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.cs.yml</argument>
+          </argument>
+          <argument key="cy" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.cy.xlf</argument>
+          </argument>
+          <argument key="da" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.da.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.da.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.da.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.da.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.da.yml</argument>
+          </argument>
+          <argument key="de" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.de.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.de.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.de.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.de.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.de.yml</argument>
+          </argument>
+          <argument key="el" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.el.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.el.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.el.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.el.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.el.yml</argument>
+          </argument>
+          <argument key="en" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.en.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.en.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.en.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.en.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.en.yml</argument>
+          </argument>
+          <argument key="es" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.es.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.es.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.es.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.es.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.es.yml</argument>
+          </argument>
+          <argument key="et" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.et.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.et.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.et.yml</argument>
+          </argument>
+          <argument key="eu" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.eu.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.eu.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.eu.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.eu.yml</argument>
+          </argument>
+          <argument key="fa" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.fa.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.fa.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.fa.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.fa.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.fa.yml</argument>
+          </argument>
+          <argument key="fi" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.fi.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.fi.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.fi.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.fi.yml</argument>
+          </argument>
+          <argument key="fr" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.fr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.fr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.fr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.fr.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.fr.yml</argument>
+          </argument>
+          <argument key="gl" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.gl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.gl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.gl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.gl.yml</argument>
+          </argument>
+          <argument key="he" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.he.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.he.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.he.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.he.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.he.yml</argument>
+          </argument>
+          <argument key="hr" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.hr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.hr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.hr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.hr.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.hr.yml</argument>
+          </argument>
+          <argument key="hu" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.hu.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.hu.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.hu.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.hu.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.hu.yml</argument>
+          </argument>
+          <argument key="hy" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.hy.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.hy.xlf</argument>
+          </argument>
+          <argument key="id" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.id.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.id.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.id.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.id.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.id.yml</argument>
+          </argument>
+          <argument key="it" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.it.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.it.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.it.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.it.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.it.yml</argument>
+          </argument>
+          <argument key="ja" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.ja.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.ja.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.ja.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.ja.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.ja.yml</argument>
+          </argument>
+          <argument key="lb" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.lb.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.lb.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.lb.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.lb.yml</argument>
+          </argument>
+          <argument key="lt" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.lt.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.lt.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.lt.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.lt.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.lt.yml</argument>
+          </argument>
+          <argument key="lv" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.lv.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.lv.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.lv.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.lv.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.lv.yml</argument>
+          </argument>
+          <argument key="mn" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.mn.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.mn.xlf</argument>
+          </argument>
+          <argument key="nb" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.nb.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.nb.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.nb.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.nb.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.nb.yml</argument>
+          </argument>
+          <argument key="nl" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.nl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.nl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.nl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.nl.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.nl.yml</argument>
+          </argument>
+          <argument key="nn" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.nn.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.nn.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.nn.xlf</argument>
+          </argument>
+          <argument key="no" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.no.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.no.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.no.xlf</argument>
+          </argument>
+          <argument key="pl" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.pl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.pl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.pl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.pl.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.pl.yml</argument>
+          </argument>
+          <argument key="pt" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.pt.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.pt.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.pt.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.pt.yml</argument>
+          </argument>
+          <argument key="pt_BR" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.pt_BR.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.pt_BR.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.pt_BR.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.pt_BR.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.pt_BR.yml</argument>
+          </argument>
+          <argument key="ro" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.ro.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.ro.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.ro.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.ro.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.ro.yml</argument>
+          </argument>
+          <argument key="ru" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.ru.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.ru.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.ru.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.ru.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.ru.yml</argument>
+          </argument>
+          <argument key="sk" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.sk.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.sk.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.sk.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.sk.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.sk.yml</argument>
+          </argument>
+          <argument key="sl" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.sl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.sl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.sl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.sl.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.sl.yml</argument>
+          </argument>
+          <argument key="sq" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.sq.xlf</argument>
+          </argument>
+          <argument key="sr_Cyrl" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.sr_Cyrl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.sr_Cyrl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.sr_Cyrl.xlf</argument>
+          </argument>
+          <argument key="sr_Latn" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.sr_Latn.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.sr_Latn.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.sr_Latn.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.sr_Latn.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.sr_Latn.yml</argument>
+          </argument>
+          <argument key="sv" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.sv.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.sv.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.sv.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.sv.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.sv.yml</argument>
+          </argument>
+          <argument key="th" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.th.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.th.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.th.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.th.yml</argument>
+          </argument>
+          <argument key="tl" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.tl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.tl.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.tl.xlf</argument>
+          </argument>
+          <argument key="tr" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.tr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.tr.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.tr.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.tr.yml</argument>
+          </argument>
+          <argument key="uk" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.uk.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.uk.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.uk.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.uk.yml</argument>
+          </argument>
+          <argument key="vi" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.vi.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.vi.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.vi.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.vi.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.vi.yml</argument>
+          </argument>
+          <argument key="zh_CN" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.zh_CN.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\form/Resources/translations\validators.zh_CN.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.zh_CN.xlf</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.zh_CN.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.zh_CN.yml</argument>
+          </argument>
+          <argument key="zh_TW" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\validator/Resources/translations\validators.zh_TW.xlf</argument>
+          </argument>
+          <argument key="pt_PT" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.pt_PT.xlf</argument>
+          </argument>
+          <argument key="ua" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-core/Resources/translations\security.ua.xlf</argument>
+          </argument>
+          <argument key="bn" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.bn.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.bn.yml</argument>
+          </argument>
+          <argument key="bn_BD" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.bn_BD.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.bn_BD.yml</argument>
+          </argument>
+          <argument key="eo" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.eo.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.eo.yml</argument>
+          </argument>
+          <argument key="ky" type="collection">
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.ky.yml</argument>
+            <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.ky.yml</argument>
+          </argument>
+        </argument>
+      </argument>
+      <call method="setConfigCacheFactory">
+        <argument type="service" id="config_cache_factory"/>
+      </call>
+      <call method="setFallbackLocales">
+        <argument type="collection">
+          <argument>en</argument>
+        </argument>
+      </call>
+    </service>
+    <service id="translator.logging" class="Symfony\Component\Translation\LoggingTranslator" public="false">
+      <tag name="monolog.logger" channel="translation"/>
+      <argument type="service" id="translator.logging.inner"/>
+      <argument type="service" id="monolog.logger.translation"/>
+    </service>
+    <service id="translator.formatter.default" class="Symfony\Component\Translation\Formatter\MessageFormatter" public="false">
+      <argument type="service" id="identity_translator"/>
+    </service>
+    <service id="translation.loader.php" class="Symfony\Component\Translation\Loader\PhpFileLoader" public="false">
+      <tag name="translation.loader" alias="php"/>
+    </service>
+    <service id="translation.loader.yml" class="Symfony\Component\Translation\Loader\YamlFileLoader" public="false">
+      <tag name="translation.loader" alias="yaml" legacy_alias="yml" legacy-alias="yml"/>
+    </service>
+    <service id="translation.loader.xliff" class="Symfony\Component\Translation\Loader\XliffFileLoader" public="false">
+      <tag name="translation.loader" alias="xlf" legacy_alias="xliff" legacy-alias="xliff"/>
+    </service>
+    <service id="translation.loader.po" class="Symfony\Component\Translation\Loader\PoFileLoader" public="false">
+      <tag name="translation.loader" alias="po"/>
+    </service>
+    <service id="translation.loader.mo" class="Symfony\Component\Translation\Loader\MoFileLoader" public="false">
+      <tag name="translation.loader" alias="mo"/>
+    </service>
+    <service id="translation.loader.qt" class="Symfony\Component\Translation\Loader\QtFileLoader" public="false">
+      <tag name="translation.loader" alias="ts"/>
+    </service>
+    <service id="translation.loader.csv" class="Symfony\Component\Translation\Loader\CsvFileLoader" public="false">
+      <tag name="translation.loader" alias="csv"/>
+    </service>
+    <service id="translation.loader.res" class="Symfony\Component\Translation\Loader\IcuResFileLoader" public="false">
+      <tag name="translation.loader" alias="res"/>
+    </service>
+    <service id="translation.loader.dat" class="Symfony\Component\Translation\Loader\IcuDatFileLoader" public="false">
+      <tag name="translation.loader" alias="dat"/>
+    </service>
+    <service id="translation.loader.ini" class="Symfony\Component\Translation\Loader\IniFileLoader" public="false">
+      <tag name="translation.loader" alias="ini"/>
+    </service>
+    <service id="translation.loader.json" class="Symfony\Component\Translation\Loader\JsonFileLoader" public="false">
+      <tag name="translation.loader" alias="json"/>
+    </service>
+    <service id="translation.dumper.php" class="Symfony\Component\Translation\Dumper\PhpFileDumper" public="false">
+      <tag name="translation.dumper" alias="php"/>
+    </service>
+    <service id="translation.dumper.xliff" class="Symfony\Component\Translation\Dumper\XliffFileDumper" public="false">
+      <tag name="translation.dumper" alias="xlf"/>
+    </service>
+    <service id="translation.dumper.po" class="Symfony\Component\Translation\Dumper\PoFileDumper" public="false">
+      <tag name="translation.dumper" alias="po"/>
+    </service>
+    <service id="translation.dumper.mo" class="Symfony\Component\Translation\Dumper\MoFileDumper" public="false">
+      <tag name="translation.dumper" alias="mo"/>
+    </service>
+    <service id="translation.dumper.yml" class="Symfony\Component\Translation\Dumper\YamlFileDumper" public="false">
+      <tag name="translation.dumper" alias="yml"/>
+    </service>
+    <service id="translation.dumper.yaml" class="Symfony\Component\Translation\Dumper\YamlFileDumper" public="false">
+      <tag name="translation.dumper" alias="yaml"/>
+      <argument>yaml</argument>
+    </service>
+    <service id="translation.dumper.qt" class="Symfony\Component\Translation\Dumper\QtFileDumper" public="false">
+      <tag name="translation.dumper" alias="ts"/>
+    </service>
+    <service id="translation.dumper.csv" class="Symfony\Component\Translation\Dumper\CsvFileDumper" public="false">
+      <tag name="translation.dumper" alias="csv"/>
+    </service>
+    <service id="translation.dumper.ini" class="Symfony\Component\Translation\Dumper\IniFileDumper" public="false">
+      <tag name="translation.dumper" alias="ini"/>
+    </service>
+    <service id="translation.dumper.json" class="Symfony\Component\Translation\Dumper\JsonFileDumper" public="false">
+      <tag name="translation.dumper" alias="json"/>
+    </service>
+    <service id="translation.dumper.res" class="Symfony\Component\Translation\Dumper\IcuResFileDumper" public="false">
+      <tag name="translation.dumper" alias="res"/>
+    </service>
+    <service id="translation.extractor.php" class="Symfony\Component\Translation\Extractor\PhpExtractor" public="false">
+      <tag name="translation.extractor" alias="php"/>
+    </service>
+    <service id="translation.reader" class="Symfony\Component\Translation\Reader\TranslationReader" public="false">
+      <call method="addLoader">
+        <argument>php</argument>
+        <argument type="service" id="translation.loader.php"/>
+      </call>
+      <call method="addLoader">
+        <argument>yaml</argument>
+        <argument type="service" id="translation.loader.yml"/>
+      </call>
+      <call method="addLoader">
+        <argument>yml</argument>
+        <argument type="service" id="translation.loader.yml"/>
+      </call>
+      <call method="addLoader">
+        <argument>xlf</argument>
+        <argument type="service" id="translation.loader.xliff"/>
+      </call>
+      <call method="addLoader">
+        <argument>xliff</argument>
+        <argument type="service" id="translation.loader.xliff"/>
+      </call>
+      <call method="addLoader">
+        <argument>po</argument>
+        <argument type="service" id="translation.loader.po"/>
+      </call>
+      <call method="addLoader">
+        <argument>mo</argument>
+        <argument type="service" id="translation.loader.mo"/>
+      </call>
+      <call method="addLoader">
+        <argument>ts</argument>
+        <argument type="service" id="translation.loader.qt"/>
+      </call>
+      <call method="addLoader">
+        <argument>csv</argument>
+        <argument type="service" id="translation.loader.csv"/>
+      </call>
+      <call method="addLoader">
+        <argument>res</argument>
+        <argument type="service" id="translation.loader.res"/>
+      </call>
+      <call method="addLoader">
+        <argument>dat</argument>
+        <argument type="service" id="translation.loader.dat"/>
+      </call>
+      <call method="addLoader">
+        <argument>ini</argument>
+        <argument type="service" id="translation.loader.ini"/>
+      </call>
+      <call method="addLoader">
+        <argument>json</argument>
+        <argument type="service" id="translation.loader.json"/>
+      </call>
+    </service>
+    <service id="translation.extractor" class="Symfony\Component\Translation\Extractor\ChainExtractor" public="false">
+      <call method="addExtractor">
+        <argument>php</argument>
+        <argument type="service" id="translation.extractor.php"/>
+      </call>
+      <call method="addExtractor">
+        <argument>twig</argument>
+        <argument type="service" id="twig.translation.extractor"/>
+      </call>
+    </service>
+    <service id="translation.writer" class="Symfony\Component\Translation\Writer\TranslationWriter" public="false">
+      <call method="addDumper">
+        <argument>php</argument>
+        <argument type="service" id="translation.dumper.php"/>
+      </call>
+      <call method="addDumper">
+        <argument>xlf</argument>
+        <argument type="service" id="translation.dumper.xliff"/>
+      </call>
+      <call method="addDumper">
+        <argument>po</argument>
+        <argument type="service" id="translation.dumper.po"/>
+      </call>
+      <call method="addDumper">
+        <argument>mo</argument>
+        <argument type="service" id="translation.dumper.mo"/>
+      </call>
+      <call method="addDumper">
+        <argument>yml</argument>
+        <argument type="service" id="translation.dumper.yml"/>
+      </call>
+      <call method="addDumper">
+        <argument>yaml</argument>
+        <argument type="service" id="translation.dumper.yaml"/>
+      </call>
+      <call method="addDumper">
+        <argument>ts</argument>
+        <argument type="service" id="translation.dumper.qt"/>
+      </call>
+      <call method="addDumper">
+        <argument>csv</argument>
+        <argument type="service" id="translation.dumper.csv"/>
+      </call>
+      <call method="addDumper">
+        <argument>ini</argument>
+        <argument type="service" id="translation.dumper.ini"/>
+      </call>
+      <call method="addDumper">
+        <argument>json</argument>
+        <argument type="service" id="translation.dumper.json"/>
+      </call>
+      <call method="addDumper">
+        <argument>res</argument>
+        <argument type="service" id="translation.dumper.res"/>
+      </call>
+    </service>
+    <service id="translation.warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\TranslationsCacheWarmer" public="false">
+      <tag name="container.service_subscriber" id="translator"/>
+      <tag name="kernel.cache_warmer"/>
+      <argument type="service" id=".service_locator._pu.0Tb.translation.warmer"/>
+    </service>
+    <service id="translator_listener" class="Symfony\Component\HttpKernel\EventListener\TranslatorListener" public="false">
+      <tag name="kernel.event_subscriber"/>
+      <tag name="container.hot_path"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="translator.data_collector"/>
+      <argument type="service" id="request_stack"/>
     </service>
     <service id="profiler" class="Symfony\Component\HttpKernel\Profiler\Profiler" public="true">
       <tag name="monolog.logger" channel="profiler"/>
@@ -1007,6 +1882,9 @@
         <argument type="service" id="data_collector.cache"/>
       </call>
       <call method="add">
+        <argument type="service" id="data_collector.translation"/>
+      </call>
+      <call method="add">
         <argument type="service" id="data_collector.security"/>
       </call>
       <call method="add">
@@ -1014,6 +1892,9 @@
       </call>
       <call method="add">
         <argument type="service" id="data_collector.doctrine"/>
+      </call>
+      <call method="add">
+        <argument type="service" id="swiftmailer.data_collector"/>
       </call>
       <call method="add">
         <argument type="service" id="data_collector.config"/>
@@ -1117,6 +1998,13 @@
     <service id="data_collector.validator" class="Symfony\Component\Validator\DataCollector\ValidatorDataCollector" public="false">
       <tag name="data_collector" template="@WebProfiler/Collector/validator.html.twig" id="validator" priority="320"/>
       <argument type="service" id="debug.validator"/>
+    </service>
+    <service id="translator.data_collector" class="Symfony\Component\Translation\DataCollectorTranslator" public="false">
+      <argument type="service" id="translator.default"/>
+    </service>
+    <service id="data_collector.translation" class="Symfony\Component\Translation\DataCollector\TranslationDataCollector" public="false">
+      <tag name="data_collector" template="@WebProfiler/Collector/translation.html.twig" id="translation" priority="275"/>
+      <argument type="service" id="translator.data_collector"/>
     </service>
     <service id=".cache_connection.GD_MSZC" class="Symfony\Component\Cache\Adapter\AbstractAdapter" public="false">
       <argument>redis://localhost</argument>
@@ -1265,6 +2153,22 @@
         <argument type="collection">
           <argument type="service" id="session_listener"/>
           <argument>onFinishRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service" id="translator_listener"/>
+          <argument>onKernelRequest</argument>
+        </argument>
+        <argument>10</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.finish_request</argument>
+        <argument type="collection">
+          <argument type="service" id="translator_listener"/>
+          <argument>onKernelFinishRequest</argument>
         </argument>
         <argument>0</argument>
       </call>
@@ -1428,6 +2332,158 @@
         </argument>
         <argument>-255</argument>
       </call>
+      <call method="addListener">
+        <argument>fos_user.security.implicit_login</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.security.interactive_login_listener"/>
+          <argument>onImplicitLogin</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>security.interactive_login</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.security.interactive_login_listener"/>
+          <argument>onSecurityInteractiveLogin</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.registration.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.authentication"/>
+          <argument>authenticate</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.registration.confirmed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.authentication"/>
+          <argument>authenticate</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.resetting.reset.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.authentication"/>
+          <argument>authenticate</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.change_password.edit.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.flash"/>
+          <argument>addSuccessFlash</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.group.create.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.flash"/>
+          <argument>addSuccessFlash</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.group.delete.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.flash"/>
+          <argument>addSuccessFlash</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.group.edit.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.flash"/>
+          <argument>addSuccessFlash</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.profile.edit.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.flash"/>
+          <argument>addSuccessFlash</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.registration.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.flash"/>
+          <argument>addSuccessFlash</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.resetting.reset.completed</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.flash"/>
+          <argument>addSuccessFlash</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.resetting.reset.initialize</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.resetting"/>
+          <argument>onResettingResetInitialize</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.resetting.reset.success</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.resetting"/>
+          <argument>onResettingResetSuccess</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>fos_user.resetting.reset.request</argument>
+        <argument type="collection">
+          <argument type="service" id="fos_user.listener.resetting"/>
+          <argument>onResettingResetRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.exception</argument>
+        <argument type="collection">
+          <argument type="service" id="swiftmailer.email_sender.listener"/>
+          <argument>onException</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.terminate</argument>
+        <argument type="collection">
+          <argument type="service" id="swiftmailer.email_sender.listener"/>
+          <argument>onTerminate</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>console.error</argument>
+        <argument type="collection">
+          <argument type="service" id="swiftmailer.email_sender.listener"/>
+          <argument>onException</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>console.terminate</argument>
+        <argument type="collection">
+          <argument type="service" id="swiftmailer.email_sender.listener"/>
+          <argument>onTerminate</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
     </service>
     <service id="debug.controller_resolver" class="Symfony\Component\HttpKernel\Controller\TraceableControllerResolver" public="false">
       <tag name="monolog.logger" channel="request"/>
@@ -1559,7 +2615,7 @@
     </service>
     <service id="Symfony\Bundle\FrameworkBundle\Controller\TemplateController" class="Symfony\Bundle\FrameworkBundle\Controller\TemplateController" public="true">
       <argument type="service" id="twig" on-invalid="ignore"/>
-      <argument>null</argument>
+      <argument type="service" id="templating.engine.delegating" on-invalid="ignore"/>
     </service>
     <service id="routing.loader.annotation" class="Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader" public="false">
       <tag name="routing.loader" priority="-10"/>
@@ -1652,7 +2708,7 @@
       </call>
     </service>
     <service id="twig" class="Twig\Environment" public="true">
-      <argument type="service" id="twig.loader.native_filesystem"/>
+      <argument type="service" id="twig.loader.filesystem"/>
       <argument type="collection">
         <argument key="default_path">C:\Users\SmartGhost\Yu-Gi-Oh/templates</argument>
         <argument key="debug">true</argument>
@@ -1749,7 +2805,7 @@
       <tag name="kernel.cache_warmer"/>
       <tag name="container.service_subscriber" id="twig"/>
       <argument type="service" id=".service_locator.lSIKWsr.twig.cache_warmer"/>
-      <argument>null</argument>
+      <argument type="service" id="templating.finder" on-invalid="ignore"/>
       <argument type="collection">
         <argument key="C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\twig-bridge/Resources/views/Form">null</argument>
       </argument>
@@ -1769,7 +2825,6 @@
       <argument type="service" id="twig.template_iterator"/>
     </service>
     <service id="twig.loader.native_filesystem" class="Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader" public="false">
-      <tag name="twig.loader"/>
       <argument type="collection"/>
       <argument>C:\Users\SmartGhost\Yu-Gi-Oh</argument>
       <call method="addPath">
@@ -1813,6 +2868,22 @@
         <argument>!WebProfiler</argument>
       </call>
       <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/views</argument>
+        <argument>FOSUser</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/views</argument>
+        <argument>!FOSUser</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\swiftmailer-bundle/Resources/views</argument>
+        <argument>Swiftmailer</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\swiftmailer-bundle/Resources/views</argument>
+        <argument>!Swiftmailer</argument>
+      </call>
+      <call method="addPath">
         <argument>C:\Users\SmartGhost\Yu-Gi-Oh/templates</argument>
       </call>
       <call method="addPath">
@@ -1833,7 +2904,7 @@
     </service>
     <service id="twig.extension.trans" class="Symfony\Bridge\Twig\Extension\TranslationExtension" public="false">
       <tag name="twig.extension"/>
-      <argument>null</argument>
+      <argument type="service" id="translator.data_collector" on-invalid="null"/>
     </service>
     <service id="twig.extension.code" class="Symfony\Bridge\Twig\Extension\CodeExtension" public="false">
       <tag name="twig.extension"/>
@@ -1870,6 +2941,10 @@
     </service>
     <service id="twig.extension.weblink" class="Symfony\Bridge\Twig\Extension\WebLinkExtension" public="false">
       <argument type="service" id="request_stack"/>
+    </service>
+    <service id="twig.translation.extractor" class="Symfony\Bridge\Twig\Translation\TwigExtractor" public="false">
+      <tag name="translation.extractor" alias="twig"/>
+      <argument type="service" id="twig"/>
     </service>
     <service id="twig.exception_listener" class="Symfony\Component\HttpKernel\EventListener\ExceptionListener" public="false">
       <tag name="kernel.event_subscriber"/>
@@ -1912,6 +2987,79 @@
       <tag name="twig.runtime"/>
       <argument type="service" id="twig.form.engine"/>
       <argument type="service" id="security.csrf.token_manager" on-invalid="null"/>
+    </service>
+    <service id="twig.loader.filesystem" class="Symfony\Bundle\TwigBundle\Loader\FilesystemLoader" public="false">
+      <tag name="twig.loader"/>
+      <argument type="service" id="templating.locator"/>
+      <argument type="service" id="templating.name_parser"/>
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh</argument>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\framework-bundle/Resources/views</argument>
+        <argument>Framework</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\framework-bundle/Resources/views</argument>
+        <argument>!Framework</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\twig-bundle/Resources/views</argument>
+        <argument>Twig</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\twig-bundle/Resources/views</argument>
+        <argument>!Twig</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\doctrine\doctrine-bundle/Resources/views</argument>
+        <argument>Doctrine</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\doctrine\doctrine-bundle/Resources/views</argument>
+        <argument>!Doctrine</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-bundle/Resources/views</argument>
+        <argument>Security</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\security-bundle/Resources/views</argument>
+        <argument>!Security</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\web-profiler-bundle/Resources/views</argument>
+        <argument>WebProfiler</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\web-profiler-bundle/Resources/views</argument>
+        <argument>!WebProfiler</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/views</argument>
+        <argument>FOSUser</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle/Resources/views</argument>
+        <argument>!FOSUser</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\swiftmailer-bundle/Resources/views</argument>
+        <argument>Swiftmailer</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\swiftmailer-bundle/Resources/views</argument>
+        <argument>!Swiftmailer</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh/templates</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\SmartGhost\Yu-Gi-Oh\vendor\symfony\twig-bridge/Resources/views/Form</argument>
+      </call>
+    </service>
+    <service id="templating.engine.twig" class="Symfony\Bundle\TwigBundle\TwigEngine" public="false">
+      <argument type="service" id="twig"/>
+      <argument type="service" id="templating.name_parser"/>
+      <argument type="service" id="templating.locator"/>
     </service>
     <service id="twig.command.debug" class="Symfony\Bridge\Twig\Command\DebugCommand" public="false">
       <tag name="console.command" command="debug:twig"/>
@@ -2043,6 +3191,9 @@
     </service>
     <service id="doctrine.dbal.default_connection.event_manager" class="Symfony\Bridge\Doctrine\ContainerAwareEventManager" public="false">
       <argument type="service" id=".service_locator.Otd28_S"/>
+      <call method="addEventSubscriber">
+        <argument type="service" id="fos_user.user_listener"/>
+      </call>
       <call method="addEventListener">
         <argument type="collection">
           <argument>loadClassMetadata</argument>
@@ -2265,6 +3416,21 @@
       <call method="addDriver">
         <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
         <argument>App\Entity</argument>
+      </call>
+      <call method="addDriver">
+        <argument type="service">
+          <service class="Doctrine\ORM\Mapping\Driver\XmlDriver">
+            <argument type="service">
+              <service class="Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator">
+                <argument type="collection">
+                  <argument key="C:\Users\SmartGhost\Yu-Gi-Oh\vendor\friendsofsymfony\user-bundle\Resources\config\doctrine-mapping">FOS\UserBundle\Model</argument>
+                </argument>
+                <argument>.orm.xml</argument>
+              </service>
+            </argument>
+          </service>
+        </argument>
+        <argument>FOS\UserBundle\Model</argument>
       </call>
     </service>
     <service id="doctrine_cache.providers.doctrine.orm.default_metadata_cache" class="Doctrine\Common\Cache\ArrayCache" public="true">
@@ -2489,20 +3655,21 @@
       <argument type="service" id="request_stack"/>
     </service>
     <service id="security.role_hierarchy" class="Symfony\Component\Security\Core\Role\RoleHierarchy" public="false">
-      <argument type="collection"/>
-    </service>
-    <service id="security.access.simple_role_voter" class="Symfony\Component\Security\Core\Authorization\Voter\RoleVoter" public="false">
-      <tag name="security.voter" priority="245"/>
+      <argument>%security.role_hierarchy.roles%</argument>
     </service>
     <service id="security.access.authenticated_voter" class="Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter" public="false">
       <tag name="security.voter" priority="250"/>
       <argument type="service" id="security.authentication.trust_resolver"/>
     </service>
+    <service id="security.access.role_hierarchy_voter" class="Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter" public="false">
+      <tag name="security.voter" priority="245"/>
+      <argument type="service" id="security.role_hierarchy"/>
+    </service>
     <service id="security.firewall.map" class="Symfony\Bundle\SecurityBundle\Security\FirewallMap" public="false">
       <argument type="service" id=".service_locator.ko2dQVn"/>
       <argument type="iterator">
         <argument key="security.firewall.map.context.dev" type="service" id=".security.request_matcher.Iy.T22O"/>
-        <argument key="security.firewall.map.context.main">null</argument>
+        <argument key="security.firewall.map.context.main" type="service" id=".security.request_matcher.3UEFixr"/>
       </argument>
     </service>
     <service id="security.firewall.context" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" public="false" abstract="true">
@@ -2531,7 +3698,7 @@
       <argument type="service" id="security.token_storage" on-invalid="null"/>
       <call method="registerListener">
         <argument>main</argument>
-        <argument>deconnexion</argument>
+        <argument>fos_user_security_logout</argument>
         <argument>logout</argument>
         <argument>_csrf_token</argument>
         <argument>null</argument>
@@ -2592,13 +3759,41 @@
       <argument type="service" id="security.authentication.retry_entry_point"/>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
     </service>
-    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false">
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.eKXDm4f"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.O7Tsk.w"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.0uhYzab"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher._pRcrzc"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+    </service>
     <service id="security.context_listener" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.in_memory"/>
-        <argument type="service" id="security.user.provider.concrete.connexion_match"/>
+        <argument type="service" id="fos_user.user_provider.username"/>
       </argument>
       <argument></argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -2900,15 +4095,6 @@
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="security.logout_url_generator"/>
     </service>
-    <service id="security.user.provider.concrete.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
-      <argument type="collection"/>
-    </service>
-    <service id="security.user.provider.concrete.connexion_match" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
-      <argument type="service" id="doctrine"/>
-      <argument>App\Entity\User</argument>
-      <argument>username</argument>
-      <argument>null</argument>
-    </service>
     <service id="security.firewall.map.config.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
       <argument>dev</argument>
       <argument>security.user_checker</argument>
@@ -2935,10 +4121,10 @@
     <service id="security.firewall.map.config.main" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
       <argument>main</argument>
       <argument>security.user_checker</argument>
-      <argument>null</argument>
+      <argument>.security.request_matcher.3UEFixr</argument>
       <argument>true</argument>
       <argument>false</argument>
-      <argument>security.user.provider.concrete.connexion_match</argument>
+      <argument>fos_user.user_provider.username</argument>
       <argument>main</argument>
       <argument>security.authentication.form_entry_point.main</argument>
       <argument>null</argument>
@@ -2949,11 +4135,13 @@
       </argument>
       <argument>null</argument>
     </service>
+    <service id=".security.request_matcher.3UEFixr" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/</argument>
+    </service>
     <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <argument type="service" id="security.token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.in_memory"/>
-        <argument type="service" id="security.user.provider.concrete.connexion_match"/>
+        <argument type="service" id="fos_user.user_provider.username"/>
       </argument>
       <argument>main</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -2967,7 +4155,7 @@
       <argument type="collection">
         <argument key="csrf_parameter">_csrf_token</argument>
         <argument key="csrf_token_id">logout</argument>
-        <argument key="logout_path">deconnexion</argument>
+        <argument key="logout_path">fos_user_security_logout</argument>
       </argument>
       <call method="addHandler">
         <argument type="service" id="security.logout.handler.csrf_token_clearing"/>
@@ -2981,7 +4169,7 @@
       <argument>home</argument>
     </service>
     <service id="security.authentication.provider.dao.main" class="Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider" public="false">
-      <argument type="service" id="security.user.provider.concrete.connexion_match"/>
+      <argument type="service" id="fos_user.user_provider.username"/>
       <argument type="service" id="security.user_checker"/>
       <argument>main</argument>
       <argument type="service" id="security.encoder_factory.generic"/>
@@ -2992,7 +4180,7 @@
       <argument type="collection"/>
       <call method="setOptions">
         <argument type="collection">
-          <argument key="login_path">connexion</argument>
+          <argument key="login_path">fos_user_security_login</argument>
           <argument key="always_use_default_target_path">false</argument>
           <argument key="default_target_path">/</argument>
           <argument key="target_path_parameter">_target_path</argument>
@@ -3010,7 +4198,7 @@
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <call method="setOptions">
         <argument type="collection">
-          <argument key="login_path">connexion</argument>
+          <argument key="login_path">fos_user_security_login</argument>
           <argument key="failure_path">null</argument>
           <argument key="failure_forward">false</argument>
           <argument key="failure_path_parameter">_failure_path</argument>
@@ -3018,7 +4206,7 @@
       </call>
     </service>
     <service id="security.authentication.listener.form.main" class="Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener" public="false">
-      <tag name="security.remember_me_aware" id="main" provider="security.user.provider.concrete.connexion_match"/>
+      <tag name="security.remember_me_aware" id="main" provider="fos_user.user_provider.username"/>
       <argument type="service" id="security.token_storage"/>
       <argument type="service" id="security.authentication.manager"/>
       <argument type="service" id="security.authentication.session_strategy"/>
@@ -3027,7 +4215,7 @@
       <argument type="service" id="security.authentication.success_handler.main.form_login"/>
       <argument type="service" id="security.authentication.failure_handler.main.form_login"/>
       <argument type="collection">
-        <argument key="check_path">connexion</argument>
+        <argument key="check_path">fos_user_security_check</argument>
         <argument key="use_forward">false</argument>
         <argument key="require_previous_session">false</argument>
         <argument key="username_parameter">_username</argument>
@@ -3038,12 +4226,12 @@
       </argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
-      <argument>null</argument>
+      <argument type="service" id="security.csrf.token_manager"/>
     </service>
     <service id="security.authentication.form_entry_point.main" class="Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint" public="false">
       <argument type="service" id="http_kernel"/>
       <argument type="service" id="security.http_utils"/>
-      <argument>connexion</argument>
+      <argument>fos_user_security_login</argument>
       <argument>false</argument>
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
@@ -3084,6 +4272,18 @@
         <argument key="security.firewall.map.context.dev" type="service" id="security.firewall.map.context.dev"/>
         <argument key="security.firewall.map.context.main" type="service" id="security.firewall.map.context.main"/>
       </argument>
+    </service>
+    <service id=".security.request_matcher.eKXDm4f" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/login$</argument>
+    </service>
+    <service id=".security.request_matcher.O7Tsk.w" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/register</argument>
+    </service>
+    <service id=".security.request_matcher.0uhYzab" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/resetting</argument>
+    </service>
+    <service id=".security.request_matcher._pRcrzc" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/admin/</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
@@ -3199,6 +4399,329 @@
       <argument>null</argument>
       <argument>true</argument>
       <argument type="collection"/>
+    </service>
+    <service id="fos_user.user_manager.default" class="FOS\UserBundle\Doctrine\UserManager" public="false">
+      <argument type="service" id="fos_user.util.password_updater"/>
+      <argument type="service" id="fos_user.util.canonical_fields_updater"/>
+      <argument type="service" id="fos_user.object_manager"/>
+      <argument>App\Entity\User</argument>
+    </service>
+    <service id="fos_user.object_manager" class="Doctrine\Common\Persistence\ObjectManager" public="false">
+      <argument>null</argument>
+      <factory service="doctrine" method="getManager"/>
+    </service>
+    <service id="fos_user.user_listener" class="FOS\UserBundle\Doctrine\UserListener" public="false">
+      <tag name="doctrine.event_subscriber"/>
+      <argument type="service" id="fos_user.util.password_updater"/>
+      <argument type="service" id="fos_user.util.canonical_fields_updater"/>
+    </service>
+    <service id="fos_user.validator.initializer" class="FOS\UserBundle\Validator\Initializer" public="false">
+      <tag name="validator.initializer"/>
+      <argument type="service" id="fos_user.util.canonical_fields_updater"/>
+    </service>
+    <service id="fos_user.security.interactive_login_listener" class="FOS\UserBundle\EventListener\LastLoginListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="fos_user.user_manager.default"/>
+    </service>
+    <service id="fos_user.security.login_manager" class="FOS\UserBundle\Security\LoginManager">
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.user_checker"/>
+      <argument type="service" id="security.authentication.session_strategy"/>
+      <argument type="service" id="request_stack"/>
+      <argument>null</argument>
+    </service>
+    <service id="fos_user.user_provider.username" class="FOS\UserBundle\Security\UserProvider" public="false">
+      <argument type="service" id="fos_user.user_manager.default"/>
+    </service>
+    <service id="fos_user.user_provider.username_email" class="FOS\UserBundle\Security\EmailUserProvider" public="false">
+      <argument type="service" id="fos_user.user_manager.default"/>
+    </service>
+    <service id="fos_user.security.controller" class="FOS\UserBundle\Controller\SecurityController" public="true">
+      <argument type="service" id="security.csrf.token_manager" on-invalid="null"/>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="fos_user.util.canonicalizer.default" class="FOS\UserBundle\Util\Canonicalizer" public="false"/>
+    <service id="fos_user.util.user_manipulator" class="FOS\UserBundle\Util\UserManipulator">
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="request_stack"/>
+    </service>
+    <service id="fos_user.util.token_generator.default" class="FOS\UserBundle\Util\TokenGenerator" public="false"/>
+    <service id="fos_user.util.password_updater" class="FOS\UserBundle\Util\PasswordUpdater" public="false">
+      <argument type="service" id="security.encoder_factory.generic"/>
+    </service>
+    <service id="fos_user.util.canonical_fields_updater" class="FOS\UserBundle\Util\CanonicalFieldsUpdater" public="false">
+      <argument type="service" id="fos_user.util.canonicalizer.default"/>
+      <argument type="service" id="fos_user.util.canonicalizer.default"/>
+    </service>
+    <service id="fos_user.mailer.default" class="FOS\UserBundle\Mailer\Mailer" public="false">
+      <tag name="fos_user.requires_swift"/>
+      <argument type="service" id="swiftmailer.mailer.default"/>
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="templating.engine.delegating"/>
+      <argument type="collection">
+        <argument key="confirmation.template">@FOSUser/Registration/email.txt.twig</argument>
+        <argument key="resetting.template">@FOSUser/Resetting/email.txt.twig</argument>
+        <argument key="from_email" type="collection">
+          <argument key="confirmation">%fos_user.registration.confirmation.from_email%</argument>
+          <argument key="resetting">%fos_user.resetting.email.from_email%</argument>
+        </argument>
+      </argument>
+    </service>
+    <service id="fos_user.mailer.twig_swift" class="FOS\UserBundle\Mailer\TwigSwiftMailer" public="false">
+      <tag name="fos_user.requires_swift"/>
+      <argument type="service" id="swiftmailer.mailer.default"/>
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="twig"/>
+      <argument type="collection">
+        <argument key="template" type="collection">
+          <argument key="confirmation">@FOSUser/Registration/email.txt.twig</argument>
+          <argument key="resetting">@FOSUser/Resetting/email.txt.twig</argument>
+        </argument>
+        <argument key="from_email" type="collection">
+          <argument key="confirmation">%fos_user.registration.confirmation.from_email%</argument>
+          <argument key="resetting">%fos_user.resetting.email.from_email%</argument>
+        </argument>
+      </argument>
+    </service>
+    <service id="fos_user.mailer.noop" class="FOS\UserBundle\Mailer\NoopMailer" public="false"/>
+    <service id="fos_user.listener.authentication" class="FOS\UserBundle\EventListener\AuthenticationListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="fos_user.security.login_manager"/>
+      <argument>main</argument>
+    </service>
+    <service id="fos_user.command.activate_user" class="FOS\UserBundle\Command\ActivateUserCommand">
+      <tag name="console.command" command="fos:user:activate"/>
+      <argument type="service" id="fos_user.util.user_manipulator"/>
+      <call method="setName">
+        <argument>fos:user:activate</argument>
+      </call>
+    </service>
+    <service id="fos_user.command.change_password" class="FOS\UserBundle\Command\ChangePasswordCommand">
+      <tag name="console.command" command="fos:user:change-password"/>
+      <argument type="service" id="fos_user.util.user_manipulator"/>
+      <call method="setName">
+        <argument>fos:user:change-password</argument>
+      </call>
+    </service>
+    <service id="fos_user.command.create_user" class="FOS\UserBundle\Command\CreateUserCommand">
+      <tag name="console.command" command="fos:user:create"/>
+      <argument type="service" id="fos_user.util.user_manipulator"/>
+      <call method="setName">
+        <argument>fos:user:create</argument>
+      </call>
+    </service>
+    <service id="fos_user.command.deactivate_user" class="FOS\UserBundle\Command\DeactivateUserCommand">
+      <tag name="console.command" command="fos:user:deactivate"/>
+      <argument type="service" id="fos_user.util.user_manipulator"/>
+      <call method="setName">
+        <argument>fos:user:deactivate</argument>
+      </call>
+    </service>
+    <service id="fos_user.command.demote_user" class="FOS\UserBundle\Command\DemoteUserCommand">
+      <tag name="console.command" command="fos:user:demote"/>
+      <argument type="service" id="fos_user.util.user_manipulator"/>
+      <call method="setName">
+        <argument>fos:user:demote</argument>
+      </call>
+    </service>
+    <service id="fos_user.command.promote_user" class="FOS\UserBundle\Command\PromoteUserCommand">
+      <tag name="console.command" command="fos:user:promote"/>
+      <argument type="service" id="fos_user.util.user_manipulator"/>
+      <call method="setName">
+        <argument>fos:user:promote</argument>
+      </call>
+    </service>
+    <service id="fos_user.listener.flash" class="FOS\UserBundle\EventListener\FlashListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="session"/>
+      <argument type="service" id="translator.data_collector"/>
+    </service>
+    <service id="fos_user.username_form_type" class="FOS\UserBundle\Form\Type\UsernameFormType">
+      <tag name="form.type" alias="fos_user_username"/>
+      <argument type="service" id="fos_user.user_to_username_transformer"/>
+    </service>
+    <service id="fos_user.user_to_username_transformer" class="FOS\UserBundle\Form\DataTransformer\UserToUsernameTransformer" public="false">
+      <argument type="service" id="fos_user.user_manager.default"/>
+    </service>
+    <service id="fos_user.profile.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
+      <argument type="service" id="form.factory"/>
+      <argument>fos_user_profile_form</argument>
+      <argument>FOS\UserBundle\Form\Type\ProfileFormType</argument>
+      <argument>%fos_user.profile.form.validation_groups%</argument>
+    </service>
+    <service id="fos_user.profile.form.type" class="FOS\UserBundle\Form\Type\ProfileFormType">
+      <tag name="form.type" alias="fos_user_profile"/>
+      <argument>App\Entity\User</argument>
+    </service>
+    <service id="fos_user.profile.controller" class="FOS\UserBundle\Controller\ProfileController" public="true">
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="fos_user.profile.form.factory"/>
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="fos_user.registration.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
+      <argument type="service" id="form.factory"/>
+      <argument>fos_user_registration_form</argument>
+      <argument>FOS\UserBundle\Form\Type\RegistrationFormType</argument>
+      <argument>%fos_user.registration.form.validation_groups%</argument>
+    </service>
+    <service id="fos_user.registration.form.type" class="FOS\UserBundle\Form\Type\RegistrationFormType">
+      <tag name="form.type" alias="fos_user_registration"/>
+      <argument>App\Entity\User</argument>
+    </service>
+    <service id="fos_user.registration.controller" class="FOS\UserBundle\Controller\RegistrationController" public="true">
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="fos_user.registration.form.factory"/>
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <argument type="service" id="security.token_storage"/>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="fos_user.change_password.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
+      <argument type="service" id="form.factory"/>
+      <argument>fos_user_change_password_form</argument>
+      <argument>FOS\UserBundle\Form\Type\ChangePasswordFormType</argument>
+      <argument>%fos_user.change_password.form.validation_groups%</argument>
+    </service>
+    <service id="fos_user.change_password.form.type" class="FOS\UserBundle\Form\Type\ChangePasswordFormType">
+      <tag name="form.type" alias="fos_user_change_password"/>
+      <argument>App\Entity\User</argument>
+    </service>
+    <service id="fos_user.change_password.controller" class="FOS\UserBundle\Controller\ChangePasswordController" public="true">
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="fos_user.change_password.form.factory"/>
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="fos_user.resetting.form.factory" class="FOS\UserBundle\Form\Factory\FormFactory">
+      <argument type="service" id="form.factory"/>
+      <argument>fos_user_resetting_form</argument>
+      <argument>FOS\UserBundle\Form\Type\ResettingFormType</argument>
+      <argument>%fos_user.resetting.form.validation_groups%</argument>
+    </service>
+    <service id="fos_user.resetting.form.type" class="FOS\UserBundle\Form\Type\ResettingFormType">
+      <tag name="form.type" alias="fos_user_resetting"/>
+      <argument>App\Entity\User</argument>
+    </service>
+    <service id="fos_user.listener.resetting" class="FOS\UserBundle\EventListener\ResettingListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="router.default"/>
+      <argument>86400</argument>
+    </service>
+    <service id="fos_user.resetting.controller" class="FOS\UserBundle\Controller\ResettingController" public="true">
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="fos_user.resetting.form.factory"/>
+      <argument type="service" id="fos_user.user_manager.default"/>
+      <argument type="service" id="fos_user.util.token_generator.default"/>
+      <argument type="service" id="fos_user.mailer.default"/>
+      <argument>7200</argument>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id=".4_Swift_Transport_Esmtp_Auth_NTLMAuthenticator~q_08AAt" class="Swift_Transport_Esmtp_Auth_NTLMAuthenticator" public="false"/>
+    <service id=".3_Swift_Transport_Esmtp_Auth_PlainAuthenticator~q_08AAt" class="Swift_Transport_Esmtp_Auth_PlainAuthenticator" public="false"/>
+    <service id=".2_Swift_Transport_Esmtp_Auth_LoginAuthenticator~q_08AAt" class="Swift_Transport_Esmtp_Auth_LoginAuthenticator" public="false"/>
+    <service id=".1_Swift_Transport_Esmtp_Auth_CramMd5Authenticator~q_08AAt" class="Swift_Transport_Esmtp_Auth_CramMd5Authenticator" public="false"/>
+    <service id="swiftmailer.mailer.abstract" class="Swift_Mailer" public="true" abstract="true">
+      <argument type="service" id="swiftmailer.mailer.default.transport.spool"/>
+    </service>
+    <service id="swiftmailer.transport.smtp.configurator.abstract" class="Symfony\Bundle\SwiftmailerBundle\DependencyInjection\SmtpTransportConfigurator" public="false" abstract="true"/>
+    <service id="swiftmailer.transport.sendmail.abstract" class="Swift_Transport_SendmailTransport" public="false" abstract="true"/>
+    <service id="swiftmailer.transport.null.abstract" class="Swift_Transport_NullTransport" public="false" abstract="true"/>
+    <service id="swiftmailer.transport.failover" class="Swift_Transport_FailoverTransport" public="false"/>
+    <service id="swiftmailer.transport.buffer.abstract" class="Swift_Transport_StreamBuffer" public="false" abstract="true">
+      <argument type="service" id="swiftmailer.transport.replacementfactory"/>
+    </service>
+    <service id="swiftmailer.transport.authhandler.abstract" class="Swift_Transport_Esmtp_AuthHandler" public="false" abstract="true">
+      <argument type="collection">
+        <argument type="service" id=".1_Swift_Transport_Esmtp_Auth_CramMd5Authenticator~q_08AAt"/>
+        <argument type="service" id=".2_Swift_Transport_Esmtp_Auth_LoginAuthenticator~q_08AAt"/>
+        <argument type="service" id=".3_Swift_Transport_Esmtp_Auth_PlainAuthenticator~q_08AAt"/>
+        <argument type="service" id=".4_Swift_Transport_Esmtp_Auth_NTLMAuthenticator~q_08AAt"/>
+      </argument>
+    </service>
+    <service id="swiftmailer.transport.eventdispatcher.abstract" class="Swift_Events_SimpleEventDispatcher" public="false" abstract="true"/>
+    <service id="swiftmailer.transport.replacementfactory" class="Swift_StreamFilters_StringReplacementFilterFactory" public="false"/>
+    <service id="swiftmailer.plugin.redirecting.abstract" class="Swift_Plugins_RedirectingPlugin" public="false" abstract="true"/>
+    <service id="swiftmailer.plugin.antiflood.abstract" class="Swift_Plugins_AntiFloodPlugin" public="false" abstract="true"/>
+    <service id="swiftmailer.plugin.impersonate.abstract" class="Swift_Plugins_ImpersonatePlugin" public="false" abstract="true"/>
+    <service id="swiftmailer.plugin.messagelogger.abstract" class="Swift_Plugins_MessageLogger" abstract="true"/>
+    <service id="swiftmailer.transport.smtp.abstract" class="Swift_Transport_EsmtpTransport" public="false" abstract="true"/>
+    <service id="swiftmailer.transport.spool.abstract" class="Swift_Transport_SpoolTransport" public="false" abstract="true"/>
+    <service id="swiftmailer.spool.file.abstract" class="Swift_FileSpool" public="false" abstract="true">
+      <argument>C:\Users\SmartGhost\Yu-Gi-Oh\src/../data/swiftmailer/spool</argument>
+    </service>
+    <service id="swiftmailer.spool.memory.abstract" class="Swift_MemorySpool" public="false" abstract="true"/>
+    <service id="swiftmailer.email_sender.listener" class="Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener">
+      <tag name="kernel.event_subscriber"/>
+      <tag name="kernel.reset" method="reset"/>
+      <argument type="service" id="service_container"/>
+      <argument type="service" id="monolog.logger" on-invalid="null"/>
+    </service>
+    <service id="swiftmailer.data_collector" class="Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector" public="false">
+      <tag name="data_collector" template="@Swiftmailer/Collector/swiftmailer.html.twig" id="swiftmailer" priority="245"/>
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="swiftmailer.command.debug" class="Symfony\Bundle\SwiftmailerBundle\Command\DebugCommand">
+      <tag name="console.command" command="debug:swiftmailer"/>
+      <call method="setName">
+        <argument>debug:swiftmailer</argument>
+      </call>
+    </service>
+    <service id="swiftmailer.command.new_email" class="Symfony\Bundle\SwiftmailerBundle\Command\NewEmailCommand">
+      <tag name="console.command" command="swiftmailer:email:send"/>
+      <call method="setName">
+        <argument>swiftmailer:email:send</argument>
+      </call>
+    </service>
+    <service id="swiftmailer.command.send_email" class="Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand">
+      <tag name="console.command" command="swiftmailer:spool:send"/>
+      <call method="setName">
+        <argument>swiftmailer:spool:send</argument>
+      </call>
+    </service>
+    <service id="swiftmailer.mailer.default.transport.eventdispatcher" class="Swift_Events_SimpleEventDispatcher" public="false"/>
+    <service id="swiftmailer.mailer.default.transport.dynamic" class="Swift_Transport">
+      <argument type="collection">
+        <argument key="transport">smtp</argument>
+        <argument key="url">%env(MAILER_URL)%</argument>
+        <argument key="username">null</argument>
+        <argument key="password">null</argument>
+        <argument key="host">localhost</argument>
+        <argument key="port">null</argument>
+        <argument key="timeout">30</argument>
+        <argument key="source_ip">null</argument>
+        <argument key="local_domain">null</argument>
+        <argument key="encryption">null</argument>
+        <argument key="auth_mode">null</argument>
+        <argument key="command">/usr/sbin/sendmail -bs</argument>
+      </argument>
+      <argument type="service" id="router.request_context" on-invalid="null"/>
+      <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
+      <factory class="Symfony\Bundle\SwiftmailerBundle\DependencyInjection\SwiftmailerTransportFactory" method="createTransport"/>
+    </service>
+    <service id="swiftmailer.mailer.default" class="Swift_Mailer" public="true">
+      <argument type="service" id="swiftmailer.mailer.default.transport.spool"/>
+    </service>
+    <service id="swiftmailer.mailer.default.spool.memory" class="Swift_MemorySpool" public="false"/>
+    <service id="swiftmailer.mailer.default.transport.spool" class="Swift_Transport_SpoolTransport" public="false">
+      <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
+      <argument type="service" id="swiftmailer.mailer.default.spool.memory"/>
+      <call method="registerPlugin">
+        <argument type="service" id="swiftmailer.mailer.default.plugin.messagelogger"/>
+      </call>
+    </service>
+    <service id="swiftmailer.mailer.default.plugin.messagelogger" class="Swift_Plugins_MessageLogger" public="true">
+      <tag name="swiftmailer.default.plugin"/>
     </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ConnexionController" class="App\Controller\ConnexionController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ConnexionController" class="App\Controller\ConnexionController" autowire="true" abstract="true"/>
@@ -3396,6 +4919,22 @@
         <argument key="App\Controller\InscriptionController:inscription" type="service" id=".service_locator.czKK4py"/>
       </argument>
     </service>
+    <service id=".service_locator.yQVjGlt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="translation.loader.csv" type="service" id="translation.loader.csv"/>
+        <argument key="translation.loader.dat" type="service" id="translation.loader.dat"/>
+        <argument key="translation.loader.ini" type="service" id="translation.loader.ini"/>
+        <argument key="translation.loader.json" type="service" id="translation.loader.json"/>
+        <argument key="translation.loader.mo" type="service" id="translation.loader.mo"/>
+        <argument key="translation.loader.php" type="service" id="translation.loader.php"/>
+        <argument key="translation.loader.po" type="service" id="translation.loader.po"/>
+        <argument key="translation.loader.qt" type="service" id="translation.loader.qt"/>
+        <argument key="translation.loader.res" type="service" id="translation.loader.res"/>
+        <argument key="translation.loader.xliff" type="service" id="translation.loader.xliff"/>
+        <argument key="translation.loader.yml" type="service" id="translation.loader.yml"/>
+      </argument>
+    </service>
     <service id=".service_locator.gmwRZ3h" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -3437,11 +4976,16 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.PmTT3Zk" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.iHaQ6M6" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CardSearchType" type="service" id="App\Form\CardSearchType"/>
         <argument key="App\Form\InscriptionType" type="service" id="App\Form\InscriptionType"/>
+        <argument key="FOS\UserBundle\Form\Type\ChangePasswordFormType" type="service" id="fos_user.change_password.form.type"/>
+        <argument key="FOS\UserBundle\Form\Type\ProfileFormType" type="service" id="fos_user.profile.form.type"/>
+        <argument key="FOS\UserBundle\Form\Type\RegistrationFormType" type="service" id="fos_user.registration.form.type"/>
+        <argument key="FOS\UserBundle\Form\Type\ResettingFormType" type="service" id="fos_user.resetting.form.type"/>
+        <argument key="FOS\UserBundle\Form\Type\UsernameFormType" type="service" id="fos_user.username_form_type"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service" id="form.type.form"/>
@@ -3464,8 +5008,8 @@
       <argument type="service" id="security.access.authenticated_voter"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
-    <service id="debug.security.voter.security.access.simple_role_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
-      <argument type="service" id="security.access.simple_role_voter"/>
+    <service id="debug.security.voter.security.access.role_hierarchy_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
+      <argument type="service" id="security.access.role_hierarchy_voter"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
     <service id="security.logout.handler.csrf_token_clearing" class="Symfony\Component\Security\Http\Logout\CsrfTokenClearingLogoutHandler" public="false">
@@ -3494,6 +5038,30 @@
     </service>
     <service id="monolog.logger.cache" class="Symfony\Bridge\Monolog\Logger">
       <argument>cache</argument>
+      <call method="pushProcessor">
+        <argument type="service" id="debug.log_processor"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.console"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.main"/>
+      </call>
+    </service>
+    <service id="monolog.logger.templating" class="Symfony\Bridge\Monolog\Logger">
+      <argument>templating</argument>
+      <call method="pushProcessor">
+        <argument type="service" id="debug.log_processor"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.console"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.main"/>
+      </call>
+    </service>
+    <service id="monolog.logger.translation" class="Symfony\Bridge\Monolog\Logger">
+      <argument>translation</argument>
       <call method="pushProcessor">
         <argument type="service" id="debug.log_processor"/>
       </call>
@@ -3600,6 +5168,7 @@
         <argument key="security.csrf.token_manager" type="service" id="security.csrf.token_manager" on-invalid="ignore"/>
         <argument key="security.token_storage" type="service" id="security.token_storage" on-invalid="ignore"/>
         <argument key="session" type="service" id="session" on-invalid="ignore"/>
+        <argument key="templating" type="service" id="templating.engine.delegating" on-invalid="ignore"/>
         <argument key="twig" type="service" id="twig" on-invalid="ignore"/>
       </argument>
     </service>
@@ -3626,6 +5195,18 @@
       <argument>App\Controller\ManagerController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KTVqfp6" method="withContext"/>
+    </service>
+    <service id=".service_locator._pu.0Tb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="translator" type="service" id="translator.data_collector"/>
+      </argument>
+    </service>
+    <service id=".service_locator._pu.0Tb.translation.warmer" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="translation.warmer"/>
+      <argument>translation.warmer</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator._pu.0Tb" method="withContext"/>
     </service>
     <service id=".service_locator.MAfdX1A" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -3693,7 +5274,7 @@
     <service id="debug.security.access.decision_manager.inner" class="Symfony\Component\Security\Core\Authorization\AccessDecisionManager" public="false">
       <argument type="iterator">
         <argument type="service" id="debug.security.voter.security.access.authenticated_voter"/>
-        <argument type="service" id="debug.security.voter.security.access.simple_role_voter"/>
+        <argument type="service" id="debug.security.voter.security.access.role_hierarchy_voter"/>
       </argument>
       <argument>affirmative</argument>
       <argument>false</argument>
@@ -3723,7 +5304,7 @@
       </argument>
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
-      <argument type="service" id=".service_locator.ifDMnsD"/>
+      <argument type="service" id=".service_locator.PzVD9qu"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -3739,6 +5320,9 @@
         <argument key="debug:event-dispatcher">console.command.event_dispatcher_debug</argument>
         <argument key="debug:router">console.command.router_debug</argument>
         <argument key="router:match">console.command.router_match</argument>
+        <argument key="debug:translation">console.command.translation_debug</argument>
+        <argument key="translation:update">console.command.translation_update</argument>
+        <argument key="lint:xliff">console.command.xliff_lint</argument>
         <argument key="lint:yaml">console.command.yaml_lint</argument>
         <argument key="debug:form">console.command.form_debug</argument>
         <argument key="server:run">web_server.command.server_run</argument>
@@ -3769,6 +5353,15 @@
         <argument key="doctrine:schema:validate">doctrine.schema_validate_command</argument>
         <argument key="doctrine:mapping:import">doctrine.mapping_import_command</argument>
         <argument key="security:encode-password">security.command.user_password_encoder</argument>
+        <argument key="fos:user:activate">fos_user.command.activate_user</argument>
+        <argument key="fos:user:change-password">fos_user.command.change_password</argument>
+        <argument key="fos:user:create">fos_user.command.create_user</argument>
+        <argument key="fos:user:deactivate">fos_user.command.deactivate_user</argument>
+        <argument key="fos:user:demote">fos_user.command.demote_user</argument>
+        <argument key="fos:user:promote">fos_user.command.promote_user</argument>
+        <argument key="debug:swiftmailer">swiftmailer.command.debug</argument>
+        <argument key="swiftmailer:email:send">swiftmailer.command.new_email</argument>
+        <argument key="swiftmailer:spool:send">swiftmailer.command.send_email</argument>
         <argument key="make:auth">maker.auto_command.make_auth</argument>
         <argument key="make:command">maker.auto_command.make_command</argument>
         <argument key="make:controller">maker.auto_command.make_controller</argument>
@@ -3789,7 +5382,7 @@
         <argument key="make:migration">maker.auto_command.make_migration</argument>
       </argument>
     </service>
-    <service id=".service_locator.ifDMnsD" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.PzVD9qu" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service" id="console.command.about"/>
@@ -3807,6 +5400,9 @@
         <argument key="console.command.form_debug" type="service" id="console.command.form_debug"/>
         <argument key="console.command.router_debug" type="service" id="console.command.router_debug"/>
         <argument key="console.command.router_match" type="service" id="console.command.router_match"/>
+        <argument key="console.command.translation_debug" type="service" id="console.command.translation_debug"/>
+        <argument key="console.command.translation_update" type="service" id="console.command.translation_update"/>
+        <argument key="console.command.xliff_lint" type="service" id="console.command.xliff_lint"/>
         <argument key="console.command.yaml_lint" type="service" id="console.command.yaml_lint"/>
         <argument key="doctrine.cache_clear_metadata_command" type="service" id="doctrine.cache_clear_metadata_command"/>
         <argument key="doctrine.cache_clear_query_cache_command" type="service" id="doctrine.cache_clear_query_cache_command"/>
@@ -3828,6 +5424,12 @@
         <argument key="doctrine.schema_drop_command" type="service" id="doctrine.schema_drop_command"/>
         <argument key="doctrine.schema_update_command" type="service" id="doctrine.schema_update_command"/>
         <argument key="doctrine.schema_validate_command" type="service" id="doctrine.schema_validate_command"/>
+        <argument key="fos_user.command.activate_user" type="service" id="fos_user.command.activate_user"/>
+        <argument key="fos_user.command.change_password" type="service" id="fos_user.command.change_password"/>
+        <argument key="fos_user.command.create_user" type="service" id="fos_user.command.create_user"/>
+        <argument key="fos_user.command.deactivate_user" type="service" id="fos_user.command.deactivate_user"/>
+        <argument key="fos_user.command.demote_user" type="service" id="fos_user.command.demote_user"/>
+        <argument key="fos_user.command.promote_user" type="service" id="fos_user.command.promote_user"/>
         <argument key="maker.auto_command.make_auth" type="service" id="maker.auto_command.make_auth"/>
         <argument key="maker.auto_command.make_command" type="service" id="maker.auto_command.make_command"/>
         <argument key="maker.auto_command.make_controller" type="service" id="maker.auto_command.make_controller"/>
@@ -3847,6 +5449,9 @@
         <argument key="maker.auto_command.make_validator" type="service" id="maker.auto_command.make_validator"/>
         <argument key="maker.auto_command.make_voter" type="service" id="maker.auto_command.make_voter"/>
         <argument key="security.command.user_password_encoder" type="service" id="security.command.user_password_encoder"/>
+        <argument key="swiftmailer.command.debug" type="service" id="swiftmailer.command.debug"/>
+        <argument key="swiftmailer.command.new_email" type="service" id="swiftmailer.command.new_email"/>
+        <argument key="swiftmailer.command.send_email" type="service" id="swiftmailer.command.send_email"/>
         <argument key="twig.command.debug" type="service" id="twig.command.debug"/>
         <argument key="twig.command.lint" type="service" id="twig.command.lint"/>
         <argument key="web_server.command.server_log" type="service" id="web_server.command.server_log"/>
@@ -3930,6 +5535,8 @@
     <service id="Symfony\Component\Cache\Adapter\AdapterInterface" alias="cache.app" public="false"/>
     <service id="Symfony\Contracts\Cache\CacheInterface" alias="cache.app" public="false"/>
     <service id="Symfony\Contracts\Cache\TagAwareCacheInterface" alias="cache.app.taggable" public="false"/>
+    <service id="Symfony\Component\Translation\TranslatorInterface" alias="translator.data_collector" public="false"/>
+    <service id="Symfony\Contracts\Translation\TranslatorInterface" alias="translator.data_collector" public="false"/>
     <service id="Symfony\Component\HttpFoundation\Session\SessionInterface" alias="session" public="false"/>
     <service id="Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface" alias="session.storage.native" public="false"/>
     <service id="SessionHandlerInterface" alias="session.handler" public="false"/>
@@ -3944,8 +5551,16 @@
     <service id="Symfony\Component\Form\FormFactoryInterface" alias="form.factory" public="false"/>
     <service id="form.property_accessor" alias="property_accessor" public="false"/>
     <service id="form.choice_list_factory" alias="form.choice_list_factory.cached" public="false"/>
+    <service id="templating.loader" alias="templating.loader.filesystem" public="true"/>
+    <service id="templating" alias="templating.engine.delegating" public="true"/>
+    <service id="debug.templating.engine.php" alias="templating.engine.php"/>
     <service id="Symfony\Component\Validator\Validator\ValidatorInterface" alias="debug.validator" public="false"/>
     <service id="validator.mapping.class_metadata_factory" alias="debug.validator" public="false"/>
+    <service id="Symfony\Component\Translation\Reader\TranslationReaderInterface" alias="translation.reader" public="false"/>
+    <service id="Symfony\Component\Translation\Extractor\ExtractorInterface" alias="translation.extractor" public="false"/>
+    <service id="Symfony\Component\Translation\Writer\TranslationWriterInterface" alias="translation.writer" public="false"/>
+    <service id="translator" alias="translator.data_collector" public="true"/>
+    <service id="translator.formatter" alias="translator.formatter.default" public="false"/>
     <service id="cache.default_redis_provider" alias=".cache_connection.GD_MSZC" public="false"/>
     <service id="cache.default_memcached_provider" alias=".cache_connection.JKE6keX" public="false"/>
     <service id="cache.default_pdo_provider" alias="doctrine.dbal.default_connection" public="false"/>
@@ -3992,15 +5607,44 @@
     <service id="Symfony\Component\Security\Http\HttpUtils" alias="security.http_utils" public="false"/>
     <service id="Symfony\Component\Security\Guard\GuardAuthenticatorHandler" alias="security.authentication.guard_handler" public="false"/>
     <service id="security.firewall" alias="debug.security.firewall" public="false"/>
+    <service id="security.user.provider.concrete.fos_userbundle" alias="fos_user.user_provider.username" public="false"/>
+    <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="fos_user.user_provider.username"/>
     <service id="security.authentication.session_strategy.main" alias="security.authentication.session_strategy"/>
     <service id="security.user_checker.main" alias="security.user_checker" public="false"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
+    <service id="fos_user.doctrine_registry" alias="doctrine" public="false"/>
+    <service id="FOS\UserBundle\Security\LoginManagerInterface" alias="fos_user.security.login_manager" public="false"/>
+    <service id="FOS\UserBundle\Util\TokenGeneratorInterface" alias="fos_user.util.token_generator.default" public="false"/>
+    <service id="FOS\UserBundle\Util\PasswordUpdaterInterface" alias="fos_user.util.password_updater" public="false"/>
+    <service id="FOS\UserBundle\Util\CanonicalFieldsUpdater" alias="fos_user.util.canonical_fields_updater" public="false"/>
+    <service id="FOS\UserBundle\Model\UserManagerInterface" alias="fos_user.user_manager.default" public="false"/>
+    <service id="fos_user.util.email_canonicalizer" alias="fos_user.util.canonicalizer.default"/>
+    <service id="fos_user.util.username_canonicalizer" alias="fos_user.util.canonicalizer.default"/>
+    <service id="fos_user.util.token_generator" alias="fos_user.util.token_generator.default"/>
+    <service id="fos_user.user_manager" alias="fos_user.user_manager.default" public="true"/>
+    <service id="fos_user.mailer" alias="fos_user.mailer.default"/>
+    <service id="fos_user.session" alias="session" public="false"/>
+    <service id="swiftmailer.mailer.default.transport" alias="swiftmailer.mailer.default.transport.spool"/>
+    <service id="swiftmailer.mailer.default.spool" alias="swiftmailer.mailer.default.spool.memory"/>
+    <service id="swiftmailer.mailer.default.transport.real" alias="swiftmailer.mailer.default.transport.dynamic" public="true"/>
+    <service id="swiftmailer.spool" alias="swiftmailer.mailer.default.spool.memory"/>
+    <service id="swiftmailer.transport.real" alias="swiftmailer.mailer.default.transport.dynamic"/>
+    <service id="Swift_Spool" alias="swiftmailer.mailer.default.spool.memory" public="false"/>
+    <service id="swiftmailer.plugin.messagelogger" alias="swiftmailer.mailer.default.plugin.messagelogger"/>
+    <service id="swiftmailer.mailer" alias="swiftmailer.mailer.default"/>
+    <service id="swiftmailer.transport" alias="swiftmailer.mailer.default.transport.spool" public="true"/>
+    <service id="Swift_Mailer" alias="swiftmailer.mailer.default" public="false"/>
+    <service id="Swift_Transport" alias="swiftmailer.mailer.default.transport.spool" public="false"/>
+    <service id="mailer" alias="swiftmailer.mailer.default" public="true"/>
     <service id="argument_resolver.controller_locator" alias=".service_locator.Zq1kQ7S"/>
-    <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="twig.loader" alias="twig.loader.native_filesystem"/>
+    <service id="Symfony\Component\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
+    <service id="Symfony\Bundle\FrameworkBundle\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
+    <service id="twig.loader" alias="twig.loader.filesystem"/>
+    <service id=".service_locator.kTspljE" alias="templating.engine.php.helpers_locator" public="false"/>
     <service id="validator" alias="debug.validator" public="true"/>
+    <service id="translator.data_collector.inner" alias="translator.default" public="false"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>
     <service id="controller_resolver" alias="debug.controller_resolver" public="false"/>
     <service id="argument_resolver" alias="debug.argument_resolver" public="false"/>

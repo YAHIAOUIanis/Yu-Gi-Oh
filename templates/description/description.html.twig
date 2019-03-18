@@ -3,8 +3,56 @@
 {% block title %}Card's description{% endblock %}
 
 {% block body %}
+
+
+    <p id="pgm">Card's Description</p>
+
     <div class="container">
-        <h1>Card's description</h1>
-        <h1>{{ card.name }}</h1>
+        <div class="row">
+            <img src={{ card.url }} alt="" height="320" width="210">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Description</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ card.text }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Level</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ card.level }}</p>
+                    </div>
+                </div>
+
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Family</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ card.family }}</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Atk</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ card.atk }}</p>
+                    </div>
+                </div>
+
+                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Def</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ card.def }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
 {% endblock %}

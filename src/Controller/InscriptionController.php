@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\UserOld;
 use App\Form\InscriptionType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,7 +18,7 @@ class InscriptionController extends AbstractController
      */
     public function inscription(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        $user = new User();
+        $user = new UserOld();
 
         $form = $this->createForm(InscriptionType::class, $user)
         ->add('password', PasswordType::class)
