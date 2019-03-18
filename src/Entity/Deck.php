@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -42,6 +43,10 @@ class Deck
      * @ORM\JoinColumn(name="card_id", referencedColumnName="id")
      */
     private $card;
+
+    public function __construct() {
+        $this->card = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

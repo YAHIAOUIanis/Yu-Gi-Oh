@@ -29,33 +29,35 @@ class srcApp_KernelDevDebugContainerUrlMatcher extends Symfony\Bundle\FrameworkB
         ];
         $this->regexpList = [
             0 => '{^(?'
-                    .'|/card([^/]++)(*:20)'
+                    .'|/deckBuilder([^/]++)(*:27)'
+                    .'|/card([^/]++)(*:47)'
                     .'|/_(?'
-                        .'|error/(\\d+)(?:\\.([^/]++))?(*:58)'
-                        .'|wdt/([^/]++)(*:77)'
+                        .'|error/(\\d+)(?:\\.([^/]++))?(*:85)'
+                        .'|wdt/([^/]++)(*:104)'
                         .'|profiler/([^/]++)(?'
                             .'|/(?'
-                                .'|search/results(*:122)'
-                                .'|router(*:136)'
+                                .'|search/results(*:150)'
+                                .'|router(*:164)'
                                 .'|exception(?'
-                                    .'|(*:156)'
-                                    .'|\\.css(*:169)'
+                                    .'|(*:184)'
+                                    .'|\\.css(*:197)'
                                 .')'
                             .')'
-                            .'|(*:179)'
+                            .'|(*:207)'
                         .')'
                     .')'
                 .')/?$}sDu',
         ];
         $this->dynamicRoutes = [
-            20 => [[['_route' => 'manager.show', '_controller' => 'App\\Controller\\ManagerController::show'], ['id'], null, null, false, true, null]],
-            58 => [[['_route' => '_twig_error_test', '_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-            77 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
-            122 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
-            136 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
-            156 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'], ['token'], null, null, false, false, null]],
-            169 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'], ['token'], null, null, false, false, null]],
-            179 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
+            27 => [[['_route' => 'deckBuilder.show', '_controller' => 'App\\Controller\\DeckBuilderController::show'], ['id'], null, null, false, true, null]],
+            47 => [[['_route' => 'manager.show', '_controller' => 'App\\Controller\\ManagerController::show'], ['id'], null, null, false, true, null]],
+            85 => [[['_route' => '_twig_error_test', '_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
+            104 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
+            150 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
+            164 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
+            184 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'], ['token'], null, null, false, false, null]],
+            197 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'], ['token'], null, null, false, false, null]],
+            207 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
         ];
     }
 }

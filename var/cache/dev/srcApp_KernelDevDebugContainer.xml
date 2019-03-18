@@ -345,6 +345,8 @@
     <service id="App\Controller\DeckBuilderController" class="App\Controller\DeckBuilderController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Repository\DeckRepository"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.KTVqfp6.App\Controller\DeckBuilderController"/>
       </call>
@@ -1321,14 +1323,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -3406,11 +3400,10 @@
         <argument>make:migration</argument>
       </call>
     </service>
-    <service id=".service_locator.oO3tOyo" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.Txvqv4R" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="manager" type="service" id="doctrine.orm.default_entity_manager"/>
-        <argument key="repo" type="service" id="App\Repository\DeckRepository"/>
       </argument>
     </service>
     <service id=".service_locator.czKK4py" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -3420,12 +3413,12 @@
         <argument key="manager" type="service" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.rK4j460" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.S75skAK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\DeckBuilderController::createDeck" type="service" id=".service_locator.oO3tOyo"/>
+        <argument key="App\Controller\DeckBuilderController::createDeck" type="service" id=".service_locator.Txvqv4R"/>
         <argument key="App\Controller\InscriptionController::inscription" type="service" id=".service_locator.czKK4py"/>
-        <argument key="App\Controller\DeckBuilderController:createDeck" type="service" id=".service_locator.oO3tOyo"/>
+        <argument key="App\Controller\DeckBuilderController:createDeck" type="service" id=".service_locator.Txvqv4R"/>
         <argument key="App\Controller\InscriptionController:inscription" type="service" id=".service_locator.czKK4py"/>
       </argument>
     </service>
@@ -3746,7 +3739,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.rK4j460"/>
+      <argument type="service" id=".service_locator.S75skAK"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -4037,7 +4030,7 @@
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.rK4j460"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.S75skAK"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>
