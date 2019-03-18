@@ -19,9 +19,8 @@ class DeckBuilderController extends AbstractController
         $deck = new Deck();
 
         $form = $this->createFormBuilder($deck)
-                     ->add('name')
+                     ->add('deckName')
                      ->getForm();
-
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             if(!$deck->getId()){

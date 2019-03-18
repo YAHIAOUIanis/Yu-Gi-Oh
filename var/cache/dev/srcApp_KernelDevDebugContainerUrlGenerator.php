@@ -22,6 +22,7 @@ class srcApp_KernelDevDebugContainerUrlGenerator extends Symfony\Component\Routi
             self::$declaredRoutes = [
         'connexion' => [[], ['_controller' => 'App\\Controller\\ConnexionController::connexion'], [], [['text', '/connexion']], [], []],
         'deconnexion' => [[], ['_controller' => 'App\\Controller\\ConnexionController::deconnexion'], [], [['text', '/deconnexion']], [], []],
+        'deckBuilder' => [[], ['_controller' => 'App\\Controller\\DeckBuilderController::createDeck'], [], [['text', '/deckBuilder']], [], []],
         'home' => [[], ['_controller' => 'App\\Controller\\HomeController::home'], [], [['text', '/']], [], []],
         'inscription' => [[], ['_controller' => 'App\\Controller\\InscriptionController::inscription'], [], [['text', '/inscription']], [], []],
         'manager' => [[], ['_controller' => 'App\\Controller\\ManagerController::manager'], [], [['text', '/manager']], [], []],

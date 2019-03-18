@@ -48,14 +48,14 @@ class Deck
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getDeckName(): ?string
     {
-        return $this->name;
+        return $this->deckName;
     }
 
-    public function setName(string $name): self
+    public function setDeckName(string $name): self
     {
-        $this->name = $name;
+        $this->deckName = $name;
 
         return $this;
     }

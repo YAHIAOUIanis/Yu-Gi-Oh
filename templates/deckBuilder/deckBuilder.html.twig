@@ -9,9 +9,8 @@
     <div class = "container">
         <h1>Deck Builder</h1>
         {{ form_start(formDeckBuilder) }}
-
-        {{ form_row(formDeckBuilder.name, {'attr' : {'placeholder': "Enter the name of your new Deck"}}) }}
-        <button type="submit" class="btn btn-success">Add</button>
+            {{ form_row(formDeckBuilder.deckName, {'attr' : {'placeholder': "Enter the name of your new Deck"}}) }}
+            <button type="submit" class="btn btn-success">Add</button>
         {{ form_end(formDeckBuilder) }}
     </div>
 
