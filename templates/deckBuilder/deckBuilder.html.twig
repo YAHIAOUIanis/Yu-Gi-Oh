@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formDeckBuilder 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Deck Builder{% endblock %}
+
+{% block body %}
+    <div class = "container">
+        <h1>Deck Builder</h1>
+        {{ form_start(formDeckBuilder) }}
+            {{ form_row(formDeckBuilder.deckName, {'attr' : {'placeholder': "Enter the name of your new Deck"}}) }}
+            <button type="submit" class="btn btn-success">Add</button>
+        {{ form_end(formDeckBuilder) }}
+    </div>
+
+    <div class = "container">
+        <form action="#" method="POST">
+            <h3>Select your deck</h3>
+            <div class = "form-group">
+                <select class="form-control">
+                    {% for d in decks %}
+                        <option value="{{ d.id }}"> {{ d.deckName }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class = "form-group">
+                <button type="submit" class="btn btn-success">Show</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
