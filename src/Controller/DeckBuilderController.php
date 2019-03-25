@@ -60,7 +60,7 @@ class DeckBuilderController extends AbstractController
                 $decksOfUserCurrent[]=$d;
             }
         }
-
+        
         return $this->render('deckBuilder/deckBuilder.html.twig', [
             'formDeckBuilder' => $form->createView(),
             'decks' => $decksOfUserCurrent
@@ -69,14 +69,17 @@ class DeckBuilderController extends AbstractController
 
 
     /**
-     * @Route("/deckBuilder{id}", name="deckBuilder.show")
+     * @Route("/deck{id}", name="deckBuilder.show")
      */
     public function show($id)
     {
         $d = $this->repo->find($id);
-        return $this->render('deckBuilder/deckBuilder.html.twig', [
-            'deck' => $d
+        $cards= $d->getCard();
+        return $this->render('showDeck/showDeck.html.twig', [
+            'deck' => $d,
+            'cards' => $cards
         ]);
     }
+
 
 }

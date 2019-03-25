@@ -14,18 +14,11 @@
     </div>
 
     <div class = "container">
-        <form action="#" method="POST">
-            <h3>Select your deck</h3>
-            <div class = "form-group">
-                <select class="form-control">
-                    {% for d in decks %}
-                        <option value="{{ d.id }}"> {{ d.deckName }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class = "form-group">
-                <button type="submit" class="btn btn-success">Show</button>
-            </div>
-        </form>
+            <h3>List of your decks</h3>
+            <ul>
+                {% for d in decks %}
+                    <a href="{{ path('deckBuilder.show', {'id': d.id}) }}"><li>{{ d.deckName }}</li> </a>
+                {% endfor %}
+            </ul>
     </div>
 {% endblock %}

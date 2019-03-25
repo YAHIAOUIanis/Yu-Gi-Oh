@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deck's description{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ deck.deckName }}'s card list </h1>
+        {% for card in cards %}
+            <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
+        {% endfor %}
+    </div>
+{% endblock %}
