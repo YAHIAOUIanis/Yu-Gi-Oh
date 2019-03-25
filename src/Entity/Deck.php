@@ -111,7 +111,18 @@ class Deck
 
     public function addCard(Cards $c): self
     {
-        $this->card[] = $c;
+        $count = 0;
+        foreach($this->card as $cardd)
+        {
+            if($c->getId() == $cardd->getId()){
+                $count++;
+                break;
+            }
+        }
+
+        if($count == 0) {
+            $this->card[] = $c;
+        }
         return $this;
     }
 }

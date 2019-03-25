@@ -94,7 +94,10 @@ class DeckBuilderController extends AbstractController
         $d->addCard($c);
         $this->manager->persist($c);
         $this->manager->flush();
-        return $this->redirectToRoute('home');
+        return $this->render('showDeck/showDeck.html.twig', [
+            'deck' => $d,
+            'cards' => $d->getCard()
+        ]);
     }
 
 }
