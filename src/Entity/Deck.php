@@ -108,4 +108,10 @@ class Deck
 
         return $this;
     }
+
+    public function addCard(Cards $c): self
+    {
+        $this->card[] = $c;
+        return $this;
+    }
 }

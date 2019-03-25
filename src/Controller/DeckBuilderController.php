@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cards;
 use App\Repository\DeckRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,5 +82,21 @@ class DeckBuilderController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Cards $c
+     * @return mixed
+     * @Route("/addCard{id}", name="addCard")
+     */
+    public function add($id)
+    {
+        $d = $this->repo->find(1);
+        $repoB = $this->getDoctrine()->getRepository(Cards::class);
+        $c = $repoB->find($id);
+        $d->addCard($c);
+        $this->manager->persist($c);
+        $this->manager->flush();
+        return $this->redirectToRoute('home');
+
+    }
 
 }
