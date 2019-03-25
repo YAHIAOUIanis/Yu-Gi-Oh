@@ -87,16 +87,14 @@ class DeckBuilderController extends AbstractController
      * @return mixed
      * @Route("/addCard{id}", name="addCard")
      */
-    public function add($id)
+    public function add($id, Request $query)
     {
-        $d = $this->repo->find(1);
-        $repoB = $this->getDoctrine()->getRepository(Cards::class);
-        $c = $repoB->find($id);
+        $d = $this->repo->find($query->request->get('choosenDeck'));
+        $c = $this->getDoctrine()->getRepository(Cards::class)->find($id);
         $d->addCard($c);
         $this->manager->persist($c);
         $this->manager->flush();
         return $this->redirectToRoute('home');
-
     }
 
 }

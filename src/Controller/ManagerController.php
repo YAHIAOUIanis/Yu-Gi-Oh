@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cardsearch;
+use App\Entity\Deck;
 use App\Form\CardSearchType;
 use App\Repository\CardsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -55,8 +56,18 @@ class ManagerController extends AbstractController
     {
         $c = $this->repo->find($id);
 
+        //recover current user's decks
+        $decks = $this->getDoctrine()->getRepository(Deck::class)->findAll();
+        $decksOfUserCurrent=array();
+        foreach ($decks as $d){
+            if($d->getUser() == $this->getUser()){
+                $decksOfUserCurrent[]=$d;
+            }
+        }
+
         return $this->render('description/description.html.twig', [
-            'card' => $c
+            'card' => $c,
+            'decks' => $decksOfUserCurrent
         ]);
     }
 }
