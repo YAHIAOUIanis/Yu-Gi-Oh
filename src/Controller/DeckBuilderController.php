@@ -101,13 +101,40 @@ class DeckBuilderController extends AbstractController
     }
 
     /**
+     * @Route("/removeCard{i}-{idd}", name="deckBuilder.removeCard")
+     */
+    public function remove($i, $idd)
+    {
+        $d = $this->repo->find($idd);
+        $c = $this->getDoctrine()->getRepository(Cards::class)->find($i);
+        $d->removeCard($c);
+        $this->manager->persist($d);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('deckBuilder');
+    }
+
+    /**
      * @Route("/deleteDeck{id}", name="deckBuilder.delete")
      */
     public function delete($id)
     {
         $d = $this->repo->find($id);
-
         $this->manager->remove($d);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('deckBuilder');
+    }
+
+    /**
+     * @Route("/rename{id}", name="deckBuilder.rename")
+     */
+    public function rename($id, Request $query)
+    {
+        $name = $query->request->get('rename');
+        $d = $this->repo->find($id);
+        $d->setDeckName($name);
+        $this->manager->persist($d);
         $this->manager->flush();
 
         return $this->redirectToRoute('deckBuilder');

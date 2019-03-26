@@ -125,4 +125,13 @@ class Deck
         }
         return $this;
     }
+
+    public function removeCard(Cards $c): self
+    {
+        if($this->card->contains($c))
+        {
+            $this->card->removeElement($c);
+        }
+        return $this;
+    }
 }

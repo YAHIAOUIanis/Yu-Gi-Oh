@@ -7,6 +7,16 @@
         <h1>{{ deck.deckName }}'s card list </h1>
         {% for card in cards %}
             <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
+            <a href="{{ path('deckBuilder.removeCard', {'i': card.id, 'idd': deck.id}) }}"><img src="icons\trash-icon"></a>
         {% endfor %}
+    </div>
+
+    <div class="container">
+        <form action="{{ path('deckBuilder.rename', {'id': deck.id}) }}" method="POST">
+            <div class = "form-group">
+                <input type="text" name="rename">
+            </div>
+            <button type="submit" class="btn btn-success">Rename {{ deck.deckName }}</button>
+        </form>
     </div>
 {% endblock %}
