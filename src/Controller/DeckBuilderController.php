@@ -100,4 +100,17 @@ class DeckBuilderController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/deleteDeck{id}", name="deckBuilder.delete")
+     */
+    public function delete($id)
+    {
+        $d = $this->repo->find($id);
+
+        $this->manager->remove($d);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('deckBuilder');
+    }
+
 }

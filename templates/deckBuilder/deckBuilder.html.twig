@@ -17,7 +17,7 @@
             <h3>List of your decks</h3>
             <ul>
                 {% for d in decks %}
-                    <a href="{{ path('deckBuilder.show', {'id': d.id}) }}"><li>{{ d.deckName }}</li> </a>
+                    <li><a href="{{ path('deckBuilder.show', {'id': d.id}) }}">{{ d.deckName }}</a><a href="{{ path('deckBuilder.delete', {'id': d.id}) }}"><img src="icons\trash-icon"></a></li>
                 {% endfor %}
             </ul>
     </div>
