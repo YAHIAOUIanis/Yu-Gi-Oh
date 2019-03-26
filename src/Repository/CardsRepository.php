@@ -70,36 +70,42 @@ class CardsRepository extends ServiceEntityRepository
         if($search->getMaxAtk()){
             $query = $query
                 ->andwhere('c.atk <= :maxAtk')
+                ->andwhere('c.level != 0')
                 ->setParameter('maxAtk', $search->getMaxAtk());
         }
 
         if($search->getMinAtk()){
             $query = $query
                 ->andwhere('c.atk >= :minAtk')
+                ->andwhere('c.level != 0')
                 ->setParameter('minAtk', $search->getMinAtk());
         }
 
         if($search->getMinDef()){
             $query = $query
                 ->andwhere('c.def <= :minDef')
+                ->andwhere('c.level != 0')
                 ->setParameter('minDef', $search->getMinDef());
         }
 
         if($search->getMaxDef()){
             $query = $query
                 ->andwhere('c.def >= :maxDef')
+                ->andwhere('c.level != 0')
                 ->setParameter('maxDef', $search->getMaxDef());
         }
 
         if($search->getMinLevel()){
             $query = $query
                 ->andwhere('c.level >= :minLevel')
+                ->andwhere('c.level != 0')
                 ->setParameter('minLevel', $search->getMinLevel());
         }
 
         if($search->getMaxLevel()){
             $query = $query
                 ->andwhere('c.level <= :maxLevel')
+                ->andwhere('c.level != 0')
                 ->setParameter('maxLevel', $search->getMaxLevel());
         }
 
