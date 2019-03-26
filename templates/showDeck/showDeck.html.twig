@@ -12,9 +12,9 @@
     </div>
 
     <div class="container">
-        <form action="{{ path('deckBuilder.rename', {'id': deck.id}) }}" method="POST">
+        <form action="{{ path('deckBuilder.rename', {'idDeck': deck.id}) }}" method="POST">
             <div class = "form-group">
-                <input type="text" name="rename">
+                <input type="text" name="rename" minlength="3">
             </div>
             <button type="submit" class="btn btn-success">Rename {{ deck.deckName }}</button>
         </form>

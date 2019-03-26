@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cards;
+use App\Repository\CardsRepository;
 use App\Repository\DeckRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,16 +27,22 @@ class DeckBuilderController extends AbstractController
      */
     private $manager;
 
-    public function __construct(DeckRepository $repo, ObjectManager $manager)
+    /**
+     * @var CardsRepository
+     */
+    private $cards_repo;
+
+    public function __construct(DeckRepository $repo, ObjectManager $manager, CardsRepository $cards_repo)
     {
         $this->repo = $repo;
         $this->manager = $manager;
+        $this->cards_repo = $cards_repo;
     }
 
     /**
      * @Route("/deckBuilder", name="deckBuilder")
      */
-    public function createDeck(Request $request, ObjectManager $manager)
+    public function createDeck(Request $request)
     {
         $deck = new Deck();
 
@@ -48,12 +55,11 @@ class DeckBuilderController extends AbstractController
                 $deck->setUser($this->getUser());
                 $deck->setCreatedAt(new \DateTime());
             }
-            $manager->persist($deck);
-            $manager->flush();
+            $this->manager->persist($deck);
+            $this->manager->flush();
         }
 
         //recover current user's decks
-        $this->repo = $this->getDoctrine()->getRepository(Deck::class);
         $decks = $this->repo->findAll();
         $decksOfUserCurrent=array();
         foreach ($decks as $d){
@@ -75,10 +81,9 @@ class DeckBuilderController extends AbstractController
     public function show($id)
     {
         $d = $this->repo->find($id);
-        $cards= $d->getCard();
         return $this->render('showDeck/showDeck.html.twig', [
             'deck' => $d,
-            'cards' => $cards
+            'cards' => $d->getCard()
         ]);
     }
 
@@ -90,7 +95,7 @@ class DeckBuilderController extends AbstractController
     public function add($id, Request $query)
     {
         $d = $this->repo->find($query->request->get('choosenDeck'));
-        $c = $this->getDoctrine()->getRepository(Cards::class)->find($id);
+        $c = $this->cards_repo->find($id);
         $d->addCard($c);
         $this->manager->persist($c);
         $this->manager->flush();
@@ -106,8 +111,9 @@ class DeckBuilderController extends AbstractController
     public function remove($i, $idd)
     {
         $d = $this->repo->find($idd);
-        $c = $this->getDoctrine()->getRepository(Cards::class)->find($i);
+        $c = $this->cards_repo->find($i);
         $d->removeCard($c);
+
         $this->manager->persist($d);
         $this->manager->flush();
 
@@ -127,13 +133,12 @@ class DeckBuilderController extends AbstractController
     }
 
     /**
-     * @Route("/rename{id}", name="deckBuilder.rename")
+     * @Route("/rename{idDeck}", name="deckBuilder.rename")
      */
-    public function rename($id, Request $query)
+    public function rename($idDeck, Request $query)
     {
-        $name = $query->request->get('rename');
-        $d = $this->repo->find($id);
-        $d->setDeckName($name);
+        $d = $this->repo->find($idDeck);
+        $d->setDeckName($query->request->get('rename'));
         $this->manager->persist($d);
         $this->manager->flush();
 
