@@ -14,7 +14,11 @@
     </div>
 
     <div class = "container">
+        {% if decks is empty %}
+            <h3>You have no decks</h3>
+        {% else %}
             <h3>List of your decks</h3>
+        {% endif %}
             <ul>
                 {% for d in decks %}
                     <li><a href="{{ path('deckBuilder.show', {'id': d.id}) }}">{{ d.deckName }}</a><a href="{{ path('deckBuilder.delete', {'id': d.id}) }}"><img src="icons\trash-icon"></a></li>
