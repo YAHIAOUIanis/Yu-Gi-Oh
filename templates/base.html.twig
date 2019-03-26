@@ -1,53 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{ path('home') }}">Yu-Gi-Oh! Builder</a>
-            <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-target="#navbarColor03" data-toggle="collapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+</head>
 
-            <div class="collapse navbar-collapse" id="navbarColor03">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('manager') }}">Card list</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('deckBuilder') }}">Deck Builder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Post your deck</a>
-                    </li>
-                    <li class="nav-item" class = "navbar-nav ml-auto">
-                        <a class="nav-link" href="#">Consult people's deck</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('deconnexion') }}">Logout</a>
-                    </li>
-                    {% else %}
-                        <li class="nav-item" class = "navbar-nav ml-auto">
-                            <a class="nav-link" href="{{ path('inscription') }}">Sign up</a>
-                        </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('connexion') }}">Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ path('home') }}">Yu-Gi-Oh! Builder</a>
+    <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor03" aria-label="Toggle navigation" type="button" data-target="#navbarColor03" data-toggle="collapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            {% if app.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('manager') }}">Card list</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('deckBuilder') }}">Deck Builder</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Post your deck</a>
+            </li>
+
+            <li class="nav-item" class = "navbar-nav ml-auto">
+                <a class="nav-link" href="#">Consult people's deck</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('fos_user_security_logout') }}">Logout</a>
+            </li>
+            {% else %}
+                <li class="nav-item" class = "navbar-nav ml-auto">
+                    <a class="nav-link" href="{{ path('fos_user_registration_register') }}">Sign up</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('fos_user_security_login') }}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 </html>
