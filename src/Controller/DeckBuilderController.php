@@ -145,4 +145,12 @@ class DeckBuilderController extends AbstractController
         return $this->redirectToRoute('deckBuilder');
     }
 
+    /**
+     * @Route("/post{id}", name="deckBuilder.post")
+     */
+    public function post()
+    {
+
+    }
+
 }

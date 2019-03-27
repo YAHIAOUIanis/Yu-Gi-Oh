@@ -21,7 +21,8 @@
         {% endif %}
             <ul>
                 {% for d in decks %}
-                    <li><a href="{{ path('deckBuilder.show', {'id': d.id}) }}">{{ d.deckName }}</a><a href="{{ path('deckBuilder.delete', {'id': d.id}) }}"><img src="icons\trash-icon"></a></li>
+                    <li><h3><a href="{{ path('deckBuilder.show', {'id': d.id}) }}">{{ d.deckName }}</a>
+                            <a href="{{ path('deckBuilder.delete', {'id': d.id}) }}"><img src="/images/c.png" height="30" width="25"></a></h3></li>
                 {% endfor %}
             </ul>
     </div>
