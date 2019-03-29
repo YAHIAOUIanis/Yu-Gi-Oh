@@ -83,7 +83,7 @@ class DeckBuilderController extends AbstractController
     public function show($id)
     {
         $d = $this->repo->find($id);
-        dump($d);
+
         return $this->render('showDeck/showDeck.html.twig', [
             'deck' => $d,
             'cards' => $d->getCard(),

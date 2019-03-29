@@ -49,7 +49,6 @@ class Deck
      */
     private $posted;
 
-
     public function __construct() {
         $this->card = new ArrayCollection();
     }
@@ -93,6 +92,14 @@ class Deck
     public function getCard()
     {
         return $this->card;
+    }
+
+    /**
+     *
+     */
+    public function getCardLength()
+    {
+        return $this->card->count();
     }
 
     /**
@@ -150,5 +157,16 @@ class Deck
     {
         $this->posted = $choice;
         return $this;
+    }
+
+    public function setMustReach(int $must_reach): self
+    {
+        $this->must_reach = $must_reach;
+        return $this;
+    }
+
+    public function getMustReach(): ?int
+    {
+        return $this->must_reach;
     }
 }
