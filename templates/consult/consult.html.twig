@@ -11,6 +11,9 @@
             {% if deck.getPosted() %}
 
                 <li><h3><a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">{{ deck.deckName }}</a></h3></li>
+                {% if user == deck.getUser() %}
+                    <button class="btn btn-success" onclick="window.location='{{ path('retrieve', {'id': deck.id}) }}'">Retrieve my deck to modify it</button>
+                {% endif %}
 
             {% endif %}
 

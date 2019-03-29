@@ -55,7 +55,8 @@ class PublicationController extends AbstractController
     public function consult()
     {
         return $this->render('consult/consult.html.twig', [
-            'decks' => $this->repo->findAll()
+            'decks' => $this->repo->findAll(),
+            'user' => $this->getUser()
         ]);
     }
 

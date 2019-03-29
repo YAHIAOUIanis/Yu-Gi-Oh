@@ -103,11 +103,7 @@ class DeckBuilderController extends AbstractController
         $d->addCard($c);
         $this->manager->persist($c);
         $this->manager->flush();
-        return $this->render('showDeck/showDeck.html.twig', [
-            'deck' => $d,
-            'cards' => $d->getCard(),
-            'user' => $this->getUser()
-        ]);
+        return $this->redirectToRoute('manager');
     }
 
     /**
@@ -148,6 +144,22 @@ class DeckBuilderController extends AbstractController
         $this->manager->flush();
 
         return $this->redirectToRoute('deckBuilder');
+    }
+
+    /**
+     * @Route("/retrieve{id}", name="retrieve")
+     */
+    public function retrieve($id)
+    {
+        $d = $this->repo->find($id);
+        $d->setPosted(false);
+        $this->manager->persist($d);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('deckBuilder.show', [
+            'id' => $id
+        ]);
+
     }
 
 }
