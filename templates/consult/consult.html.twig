@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publicated decks{% endblock %}
+
+{% block body %}
+    <div class = "container">
+        <h1>Publicated decks</h1>
+
+        {% for deck in decks %}
+
+            {% if deck.getPosted() %}
+
+                <li><h3><a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">{{ deck.deckName }}</a></h3></li>
+
+            {% endif %}
+
+        {% endfor %}
+    </div>
+{% endblock %}

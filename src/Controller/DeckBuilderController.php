@@ -55,6 +55,8 @@ class DeckBuilderController extends AbstractController
                 $deck->setUser($this->getUser());
                 $deck->setCreatedAt(new \DateTime());
             }
+            $deck->setPosted(false);
+
             $this->manager->persist($deck);
             $this->manager->flush();
         }
@@ -81,9 +83,11 @@ class DeckBuilderController extends AbstractController
     public function show($id)
     {
         $d = $this->repo->find($id);
+        dump($d);
         return $this->render('showDeck/showDeck.html.twig', [
             'deck' => $d,
-            'cards' => $d->getCard()
+            'cards' => $d->getCard(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -101,7 +105,8 @@ class DeckBuilderController extends AbstractController
         $this->manager->flush();
         return $this->render('showDeck/showDeck.html.twig', [
             'deck' => $d,
-            'cards' => $d->getCard()
+            'cards' => $d->getCard(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -143,14 +148,6 @@ class DeckBuilderController extends AbstractController
         $this->manager->flush();
 
         return $this->redirectToRoute('deckBuilder');
-    }
-
-    /**
-     * @Route("/post{id}", name="deckBuilder.post")
-     */
-    public function post()
-    {
-
     }
 
 }

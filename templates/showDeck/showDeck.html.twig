@@ -7,16 +7,26 @@
         <h1>{{ deck.deckName }}'s card list </h1>
         {% for card in cards %}
             <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
+            {% if user == deck.getUser() %}
             <a href="{{ path('deckBuilder.removeCard', {'i': card.id, 'idd': deck.id}) }}"><img src="/images/c.png" height="30" width="25"></a>
+            {% endif %}
         {% endfor %}
     </div>
 
-    <div class="container">
-        <form action="{{ path('deckBuilder.rename', {'idDeck': deck.id}) }}" method="POST">
-            <div class = "form-group">
-                <input type="text" name="rename" minlength="3">
-            </div>
-            <button type="submit" class="btn btn-success">Rename {{ deck.deckName }}</button>
-        </form>
-    </div>
+
+    {% if user == deck.getUser() %}
+        <div class="container">
+            <form action="{{ path('deckBuilder.rename', {'idDeck': deck.id}) }}" method="POST">
+                <div class = "form-group">
+                    <input type="text" name="rename" minlength="3">
+                </div>
+                <button type="submit" class="btn btn-success">Rename {{ deck.deckName }}</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <a href="{{ path('post', {'id': deck.id}) }}"><img src="/images/add.png" alt="" height="40" width="40"></a>
+        </div>
+    {% endif %}
+
 {% endblock %}

@@ -44,6 +44,12 @@ class Deck
      */
     private $card;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $posted;
+
+
     public function __construct() {
         $this->card = new ArrayCollection();
     }
@@ -132,6 +138,17 @@ class Deck
         {
             $this->card->removeElement($c);
         }
+        return $this;
+    }
+
+    public function getPosted(): ?bool
+    {
+        return $this->posted;
+    }
+
+    public function setPosted(bool $choice): self
+    {
+        $this->posted = $choice;
         return $this;
     }
 }

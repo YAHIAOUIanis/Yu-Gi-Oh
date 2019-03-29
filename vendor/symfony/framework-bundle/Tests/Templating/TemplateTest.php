@@ -28,7 +28,7 @@ class TemplateTest extends TestCase
     {
         return [
             [new TemplateReference('FooBundle', 'Post', 'index', 'html', 'php'), '@FooBundle/Resources/views/Post/index.html.php'],
-            [new TemplateReference('FooBundle', '', 'index', 'html', 'twig'), '@FooBundle/Resources/views/index.html.twig'],
+            [new TemplateReference('FooBundle', '', 'index', 'html', 'twig'), '@FooBundle/Resources/views/consult.html.twig'],
             [new TemplateReference('', 'Post', 'index', 'html', 'php'), 'views/Post/index.html.php'],
             [new TemplateReference('', '', 'index', 'html', 'php'), 'views/index.html.php'],
         ];
