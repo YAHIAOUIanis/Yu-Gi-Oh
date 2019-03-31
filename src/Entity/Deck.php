@@ -131,17 +131,8 @@ class Deck
 
     public function addCard(Cards $c): self
     {
-        $count = 0;
-        foreach($this->card as $cardd)
-        {
-            if($c->getId() == $cardd->getId()){
-                $count++;
-                break;
-            }
-        }
-
-        if($count == 0) {
-            $this->card[] = $c;
+        if(!$this->card->contains($c) && count($this->card) < 20) {
+            $this->card->add($c);
         }
         return $this;
     }

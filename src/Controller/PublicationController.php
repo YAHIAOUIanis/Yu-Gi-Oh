@@ -40,7 +40,7 @@ class PublicationController extends AbstractController
     {
         $deck = $this->repo->find($id);
         //we put a value that the number of cards in the deck must reach
-        if($deck->getCardLength() >= 3){
+        if($deck->getCardLength() >= 5){
             $deck->setPosted(true);
         }
         $this->manager->persist($deck);

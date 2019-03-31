@@ -120,7 +120,11 @@ class DeckBuilderController extends AbstractController
         $this->manager->persist($d);
         $this->manager->flush();
 
-        return $this->redirectToRoute('deckBuilder');
+        return $this->render('showDeck/showDeck.html.twig', [
+            'deck' => $d,
+            'cards' => $d->getCard(),
+            'user' => $this->getUser()
+        ]);
     }
 
     /**
@@ -145,7 +149,11 @@ class DeckBuilderController extends AbstractController
         $this->manager->persist($d);
         $this->manager->flush();
 
-        return $this->redirectToRoute('deckBuilder');
+        return $this->render('showDeck/showDeck.html.twig', [
+            'deck' => $d,
+            'cards' => $d->getCard(),
+            'user' => $this->getUser()
+        ]);
     }
 
     /**
