@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Cards;
+use App\Entity\PostLike;
 use App\Repository\CardsRepository;
 use App\Repository\DeckRepository;
+use App\Repository\PostLikeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -159,7 +161,44 @@ class DeckBuilderController extends AbstractController
         return $this->redirectToRoute('deckBuilder.show', [
             'id' => $id
         ]);
+    }
 
+    /**
+
+     * @Route("like{idDeck}", name="like")
+     */
+    public function like(int $idDeck, PostLikeRepository $like_repo)
+    {
+        $user = $this->getUser();
+        $deck = $this->repo->find($idDeck);
+        if ($deck->isLikedByUser($user)) {
+            $like = $like_repo->findOneBy([
+                'deck' => $deck,
+                'user' => $user
+            ]);
+
+            $this->manager->remove($like);
+            $this->manager->flush();
+
+            //I send informations to json in order to have the number of likes
+            return $this->json([
+                'code' => 200,
+                'message' => 'Like deleted',
+                'likes' => $like_repo->count(['deck' => $deck])
+            ], 200);
+        }
+
+        $like = new PostLike();
+        $like->setDeck($deck);
+        $like->setUser($user);
+        $this->manager->persist($like);
+        $this->manager->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => 'Like added',
+            'likes' => $like_repo->count(['deck' => $deck])
+        ], 200);
     }
 
 }
