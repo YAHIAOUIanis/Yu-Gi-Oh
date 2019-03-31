@@ -39,7 +39,6 @@ class ManagerController extends AbstractController
         $search = new Cardsearch();
         $form = $this->createForm(CardSearchType::class, $search);
         $form->handleRequest($request);
-
         $cards = $this->repo->findAllCards($search);
 
         return $this->render('manager/manager.html.twig', [
