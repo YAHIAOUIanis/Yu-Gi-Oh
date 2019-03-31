@@ -26,7 +26,7 @@
                             <li class="list-group-item text-center">
                                 <h3>
                                     <a href="{{ path('deckBuilder.show', {'id': d.id}) }}" class="card-link">{{ d.deckName }}</a>
-                                    <a href="{{ path('deckBuilder.delete', {'id': d.id}) }}" class="card-link"><img src="/images/c.png" height="30" width="25"></a>
+                                    <a href="{{ path('deckBuilder.delete', {'id': d.id}) }}" class="card-link"><i class="fas fa-trash"></i></a>
                                 </h3>
                             </li>
                         {% endfor %}

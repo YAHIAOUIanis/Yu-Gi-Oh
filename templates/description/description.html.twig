@@ -60,7 +60,7 @@
                 <form action="{{ path('addCard', {'id': card.id}) }}" method="POST">
 
                     <div class = "form-group">
-                        <select class="form-control" name="choosenDeck">
+                        <select class="form-control form-control-lg" name="choosenDeck">
                             {% for d in decks %}
                                 <option value="{{ d.id }}"> {{ d.deckName }}</option>
                             {% endfor %}

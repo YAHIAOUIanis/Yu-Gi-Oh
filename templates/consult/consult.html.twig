@@ -3,14 +3,17 @@
 {% block title %}Publicated decks{% endblock %}
 
 {% block body %}
+    <br>
     <div class = "container">
+            <div class="card">
+                <div class="card-body">
         <h1>Publicated decks</h1>
 
         {% for deck in decks %}
 
             {% if deck.getPosted() %}
 
-                <li>
+                <li class="list-group-item text-center">
                     <h3>
                         <a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">
                             {{ deck.deckName }}
@@ -33,5 +36,7 @@
             {% endif %}
 
         {% endfor %}
+    </div>
+            </div>
     </div>
 {% endblock %}
