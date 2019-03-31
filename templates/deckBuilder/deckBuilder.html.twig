@@ -9,21 +9,29 @@
         <h1>Deck Builder</h1>
         {{ form_start(formDeckBuilder) }}
             {{ form_row(formDeckBuilder.deckName, {'attr' : {'placeholder': "Enter the name of your new Deck"}}) }}
-            <button type="submit" class="btn btn-success">Add</button>
+            <button type="submit" class="btn btn-outline-danger">Add</button>
         {{ form_end(formDeckBuilder) }}
     </div>
-
+    <hr>
     <div class = "container">
-        {% if decks is empty %}
-            <h3>You have no decks</h3>
-        {% else %}
-            <h3>List of your decks</h3>
-        {% endif %}
-            <ul>
-                {% for d in decks %}
-                    <li><h3><a href="{{ path('deckBuilder.show', {'id': d.id}) }}">{{ d.deckName }}</a>
-                            <a href="{{ path('deckBuilder.delete', {'id': d.id}) }}"><img src="/images/c.png" height="30" width="25"></a></h3></li>
-                {% endfor %}
-            </ul>
+        <div class="card">
+            <div class="card-body">
+                {% if decks is empty %}
+                    <h3>You have no decks</h3>
+                {% else %}
+                    <h3>List of your decks</h3>
+                {% endif %}
+                    <ul>
+                        {% for d in decks %}
+                            <li class="list-group-item text-center">
+                                <h3>
+                                    <a href="{{ path('deckBuilder.show', {'id': d.id}) }}" class="card-link">{{ d.deckName }}</a>
+                                    <a href="{{ path('deckBuilder.delete', {'id': d.id}) }}" class="card-link"><img src="/images/c.png" height="30" width="25"></a>
+                                </h3>
+                            </li>
+                        {% endfor %}
+                    </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}

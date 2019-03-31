@@ -3,14 +3,12 @@
 {% block title %}Card's description{% endblock %}
 
 {% block body %}
-
-    <p id="pgm">Card's Description</p>
-
+    <br>
     <div class="container">
         <div class="row">
             <img src={{ card.url }} alt="" height="320" width="210">
             <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
                     <div class="card-header">Description</div>
                     <div class="card-body">
                         <p class="card-text">{{ card.text }}</p>
@@ -20,14 +18,14 @@
 
             {% if card.level != 0 %}
             <div class="col-md-2">
-                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
                     <div class="card-header">Level</div>
                     <div class="card-body">
                         <p class="card-text">{{ card.level }}</p>
                     </div>
                 </div>
 
-                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
                     <div class="card-header">Family</div>
                     <div class="card-body">
                         <p class="card-text">{{ card.family }}</p>
@@ -36,14 +34,14 @@
             </div>
 
             <div class="col-md-2">
-                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card text-white bg-info mb-3" style="max-width: 15rem;">
                     <div class="card-header">Atk</div>
                     <div class="card-body">
                         <p class="card-text">{{ card.atk }}</p>
                     </div>
                 </div>
 
-                <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card text-white bg-info mb-3" style="max-width: 15rem;">
                     <div class="card-header">Def</div>
                     <div class="card-body">
                         <p class="card-text">{{ card.def }}</p>
@@ -54,17 +52,23 @@
         </div>
     </div>
 
-    <div class = "container">
-        <form action="{{ path('addCard', {'id': card.id}) }}" method="POST">
-            <h3>Select your deck</h3>
-            <div class = "form-group">
-                <select class="form-control" name="choosenDeck">
-                    {% for d in decks %}
-                        <option value="{{ d.id }}"> {{ d.deckName }}</option>
-                    {% endfor %}
-                </select>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center">Select your deck</h3>
+
+            <div class = "container">
+                <form action="{{ path('addCard', {'id': card.id}) }}" method="POST">
+
+                    <div class = "form-group">
+                        <select class="form-control" name="choosenDeck">
+                            {% for d in decks %}
+                                <option value="{{ d.id }}"> {{ d.deckName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-outline-info btn-lg btn-block">Add this card your deck</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-success">Add this card to this deck</button>
-        </form>
+        </div>
     </div>
 {% endblock %}

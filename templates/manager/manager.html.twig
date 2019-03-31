@@ -5,12 +5,18 @@
 {% block body %}
     <div class="container">
         <br>
-        <div class="jumbotron">
-            {{ form_start(form) }}
 
-            {{ form_rest(form) }}
-            <button class="btn btn-primary">Search</button>
-            {{ form_end(form) }}
+        <a class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Card filter
+        </a>
+        <div class="collapse" id="collapseExample">
+            <div class="jumbotron">
+                {{ form_start(form) }}
+
+                {{ form_rest(form) }}
+                <button class="btn btn-outline-danger">Search</button>
+                {{ form_end(form) }}
+            </div>
         </div>
         <br><br> <!-- A MODIFIER !-->
 

@@ -10,7 +10,16 @@
 
             {% if deck.getPosted() %}
 
-                <li><h3><a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">{{ deck.deckName }}</a></h3></li>
+                <li>
+                    <h3>
+                        <a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">
+                            {{ deck.deckName }}
+                            {% if date(deck.createdAt) > date('-5hours') %}
+                                <span class="badge badge-secondary">New</span>
+                            {% endif %}
+                        </a>
+                    </h3>
+                </li>
                 <a href="{{ path('like', {'idDeck': deck.id}) }}" class="btn btn-link js-like">
                     {% if deck.isLikedByUser(app.user) %}
                         <i class="fas fa-thumbs-up"></i>
