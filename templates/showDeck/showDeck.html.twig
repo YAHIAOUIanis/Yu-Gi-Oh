@@ -7,11 +7,15 @@
         <h1>{{ deck.deckName }}'s card list </h1>
         {% for card in cards %}
             <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
+
             {% if user == deck.getUser() %}
+
               {% if deck.getPosted() == false %}
                   <a href="{{ path('deckBuilder.removeCard', {'i': card.id, 'idd': deck.id}) }}"><img src="/images/c.png" height="30" width="25"></a>
               {% endif %}
+
             {% endif %}
+
         {% endfor %}
     </div>
 
@@ -32,7 +36,8 @@
             </div>
         {% else %}
             <div class="container">
-                <h2>You can't modify a deck that you have posted, retrieve it, modify it then repost it !</h2>
+                <br>
+                <button class="btn btn-success" onclick="window.location='{{ path('retrieve', {'id': deck.id}) }}'">Retrieve my deck to modify it</button>
             </div>
         {% endif %}
     {% endif %}

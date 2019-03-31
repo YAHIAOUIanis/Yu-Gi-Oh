@@ -20,9 +20,6 @@
                     <span class="js-likes">{{ deck.likes | length }}</span>
                     <span class="js-label">Likes</span>
                 </a>
-                {% if user == deck.getUser() %}
-                    <button class="btn btn-success" onclick="window.location='{{ path('retrieve', {'id': deck.id}) }}'">Retrieve my deck to modify it</button>
-                {% endif %}
 
             {% endif %}
 

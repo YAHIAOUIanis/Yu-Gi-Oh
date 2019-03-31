@@ -35,7 +35,6 @@ class ManagerController extends AbstractController
      */
     public function manager(Request $request)
     {
-        $this->repo = $this->getDoctrine()->getRepository(Cards::class);
         $search = new Cardsearch();
         $form = $this->createForm(CardSearchType::class, $search);
         $form->handleRequest($request);

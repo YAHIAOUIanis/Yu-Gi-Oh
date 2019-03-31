@@ -115,7 +115,8 @@ class CardsRepository extends ServiceEntityRepository
     public function findAllQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('c')
-            ->andwhere('c.quantity = 1');
+            ->andwhere('c.quantity = 1')
+            ->orderBy('c.name');
     }
 
 }
