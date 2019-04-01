@@ -20,9 +20,20 @@
         </div>
         <br><br> <!-- A MODIFIER !-->
 
-        {% for card in cards %}
-            <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
-        {% endfor %}
+        <div class="container list-group-item text-center">
+            <div class="row mx-auto">
+            {% for card in cards %}
+                <div class="col-xs-6 col-sm-3">
+                    <p>{{ card.name }}</p>
+                    <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="" height="320" width="210"></a>
+                    <hr color="green">
+                    <br>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+
 
     </div>
+    {% include ('inc/footer.html.twig') %}
 {% endblock %}

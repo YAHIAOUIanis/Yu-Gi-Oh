@@ -5,38 +5,46 @@
 {% block body %}
     <br>
     <div class = "container">
+
+        <h1>Publicated decks</h1>
+        {% for deck in decks %}
             <div class="card">
                 <div class="card-body">
-        <h1>Publicated decks</h1>
-
-        {% for deck in decks %}
-
             {% if deck.getPosted() %}
-
-                <li class="list-group-item text-center">
-                    <h3>
-                        <a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">
-                            {{ deck.deckName }}
-                            {% if date(deck.createdAt) > date('-5hours') %}
-                                <span class="badge badge-secondary">New</span>
-                            {% endif %}
-                        </a>
-                    </h3>
-                </li>
-                <a href="{{ path('like', {'idDeck': deck.id}) }}" class="btn btn-link js-like">
-                    {% if deck.isLikedByUser(app.user) %}
-                        <i class="fas fa-thumbs-up"></i>
-                    {% else %}
-                        <i class="far fa-thumbs-up"></i>
-                    {% endif %}
-                    <span class="js-likes">{{ deck.likes | length }}</span>
-                    <span class="js-label">Likes</span>
-                </a>
-
-            {% endif %}
-
-        {% endfor %}
-    </div>
+                    <li class="list-group-item text-center">
+                        <h3>
+                            <a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">
+                                {{ deck.deckName }}
+                                {% if date(deck.createdAt) > date('-5hours') %}
+                                    <span class="badge badge-secondary">New</span>
+                                {% endif %}
+                            </a>
+                        </h3>
+                    </li>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{{ path('like', {'idDeck': deck.id}) }}" class="btn btn-link js-like">
+                                {% if deck.isLikedByUser(app.user) %}
+                                    <i class="fas fa-thumbs-up"></i>
+                                {% else %}
+                                    <i class="far fa-thumbs-up"></i>
+                                {% endif %}
+                                <span class="js-likes">{{ deck.likes | length }}</span>
+                                <span class="js-label">Likes</span>
+                            </a>
+                        </div>
+                        <div class="text-right col-md-6">
+                        {% if deck.user == user %}
+                            <p>Shared by <strong>me</strong></p>
+                        {% else %}
+                            <p>Shared by <strong>{{ deck.user }}</strong></p>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
             </div>
+            <br>
+        {% endfor %}
     </div>
 {% endblock %}
