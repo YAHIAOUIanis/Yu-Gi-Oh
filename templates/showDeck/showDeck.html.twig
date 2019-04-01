@@ -35,14 +35,18 @@
             {% endif %}
                 <p>{{ card.name }}</p>
                 <a href="{{ path('manager.show', {'id': card.id}) }}"><img src={{ card.url }} alt="Nopicture" height="320" width="210"></a>
+                {% if user == deck.user %}
                 <div>
                     <a href="{{ path('deckBuilder.removeCard', {'i': card.id, 'idd': deck.id}) }}"><i class="fas fa-trash"></i></a>
                 </div>
+                {% endif %}
                 <hr color="green">
                 <br>
             </div>
         {% endfor %}
         </div>
     </div>
+
+    {% include ('inc/footer.html.twig') %}
 
 {% endblock %}
