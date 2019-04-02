@@ -53,7 +53,7 @@ class PublicationController extends AbstractController
      * @Route("/consult", name="consult")
      */
     public function consult()
-    {
+    {        
         return $this->render('consult/consult.html.twig', [
             'decks' => $this->repo->findAll(),
             'user' => $this->getUser()
