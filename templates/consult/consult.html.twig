@@ -1,50 +1,70 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Publicated decks{% endblock %}
-
 {% block body %}
-    <br>
-    <div class = "container">
-
-        <h1>Publicated decks</h1>
-        {% for deck in decks %}
-            <div class="card">
-                <div class="card-body">
-            {% if deck.getPosted() %}
-                    <li class="list-group-item text-center">
-                        <h3>
-                            <a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">
-                                {{ deck.deckName }}
-                                {% if date(deck.createdAt) > date('-5hours') %}
-                                    <span class="badge badge-secondary">New</span>
-                                {% endif %}
-                            </a>
-                        </h3>
-                    </li>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a href="{{ path('like', {'idDeck': deck.id}) }}" class="btn btn-link js-like">
-                                {% if deck.isLikedByUser(app.user) %}
-                                    <i class="fas fa-thumbs-up"></i>
-                                {% else %}
-                                    <i class="far fa-thumbs-up"></i>
-                                {% endif %}
-                                <span class="js-likes">{{ deck.likes | length }}</span>
-                                <span class="js-label">Likes</span>
-                            </a>
-                        </div>
-                        <div class="text-right col-md-6">
-                        {% if deck.user == user %}
-                            <p>Shared by <strong>me</strong></p>
-                        {% else %}
-                            <p>Shared by <strong>{{ deck.user }}</strong></p>
+<br>
+<div class = "container">
+    <h1>Publicated decks</h1>
+    {% for deck in decks %}
+        {% if deck.getPosted() %}
+    <div class="card">
+        <div class="card-body">            
+            <li class="list-group-item text-center">
+                <h3>
+                    <a href="{{ path('deckBuilder.show', {'id': deck.id}) }}">
+                        {{ deck.deckName }}
+                        {% if date(deck.createdAt) > date('-5hours') %}
+                            <span class="badge badge-secondary">New</span>
                         {% endif %}
-                        </div>
-                    </div>
+                    </a>
+                </h3>
+            </li>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{ path('like', {'idDeck': deck.id}) }}" class="btn btn-link js-like">
+                        {% if deck.isLikedByUser(app.user) %}
+                            <i class="fas fa-thumbs-up"></i>
+                        {% else %}
+                            <i class="far fa-thumbs-up"></i>
+                        {% endif %}
+                        <span class="js-likes">{{ deck.likes | length }}</span>
+                        <span class="js-label">Likes</span>
+                    </a>
+                </div>
+                <div class="text-right col-md-6">
+                {% if deck.user == user %}
+                    <p>Shared by <strong>me</strong></p>
+                {% else %}
+                    <p>Shared by <strong>{{ deck.user }}</strong></p>
                 {% endif %}
                 </div>
-            </div>
-            <br>
-        {% endfor %}
+            </div>        
+        </div>        
     </div>
+    <br>
+        {% endif %}
+    {% endfor %}
+</div>
+<script>
+    function onClickBtnLike(event){
+        event.preventDefault();
+        const url = this.href;
+        const spanCount = this.querySelector('span.js-likes');
+        const icon = this.querySelector('i')
+        axios.get(url).then(function(response){
+            spanCount.textContent = response.data.likes;
+
+            if(icon.classList.contains('fas')){
+                icon.classList.replace('fas','far');
+            } else {
+                icon.classList.replace('far','fas');
+            }
+        }).catch(function (error){
+            window.alert("An error occured, please try again later");
+        });
+    }
+
+    document.querySelectorAll('a.js-like').forEach(function(link){
+        link.addEventListener('click', onClickBtnLike);
+    })
+</script>
 {% endblock %}
