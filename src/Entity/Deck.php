@@ -51,7 +51,7 @@ class Deck
     private $posted;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="deck")
+     * @ORM\OneToMany(targetEntity="App\Entity\PostLike", mappedBy="deck", orphanRemoval = true)
      */
     private $likes;
 

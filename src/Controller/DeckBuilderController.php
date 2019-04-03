@@ -34,11 +34,18 @@ class DeckBuilderController extends AbstractController
      */
     private $cards_repo;
 
-    public function __construct(DeckRepository $repo, ObjectManager $manager, CardsRepository $cards_repo)
+    /**
+     * @var PostLikeRepository
+     */
+    private $like_repo;
+
+
+    public function __construct(DeckRepository $repo, ObjectManager $manager, CardsRepository $cards_repo, PostLikeRepository $like_repo)
     {
         $this->repo = $repo;
         $this->manager = $manager;
         $this->cards_repo = $cards_repo;
+        $this->like_repo = $like_repo;
     }
 
     /**
@@ -82,7 +89,7 @@ class DeckBuilderController extends AbstractController
     /**
      * @Route("/deck{id}", name="deckBuilder.show")
      */
-    public function show($id)
+    public function show(int $id)
     {
         $d = $this->repo->find($id);
 
@@ -98,7 +105,7 @@ class DeckBuilderController extends AbstractController
      * @return mixed
      * @Route("/addCard{id}", name="addCard")
      */
-    public function add($id, Request $query)
+    public function add(int $id, Request $query)
     {
         $d = $this->repo->find($query->request->get('choosenDeck'));
         $c = $this->cards_repo->find($id);
@@ -111,7 +118,7 @@ class DeckBuilderController extends AbstractController
     /**
      * @Route("/removeCard{i}-{idd}", name="deckBuilder.removeCard")
      */
-    public function remove($i, $idd)
+    public function remove(int $i, int $idd)
     {
         $d = $this->repo->find($idd);
         $c = $this->cards_repo->find($i);
@@ -130,9 +137,19 @@ class DeckBuilderController extends AbstractController
     /**
      * @Route("/deleteDeck{id}", name="deckBuilder.delete")
      */
-    public function delete($id)
+    public function delete(int $id)
     {
         $d = $this->repo->find($id);
+
+        $likes = $this->like_repo;
+        foreach($likes as $like)
+        {
+            if($like->getDeck()->getId() == $id)
+            {
+                $this->manager->remove($like);
+                $this->manager->flush();
+            }
+        }
         $this->manager->remove($d);
         $this->manager->flush();
 
@@ -142,7 +159,7 @@ class DeckBuilderController extends AbstractController
     /**
      * @Route("/rename{idDeck}", name="deckBuilder.rename")
      */
-    public function rename($idDeck, Request $query)
+    public function rename(int $idDeck, Request $query)
     {
         $d = $this->repo->find($idDeck);
         $d->setDeckName($query->request->get('rename'));
@@ -159,7 +176,7 @@ class DeckBuilderController extends AbstractController
     /**
      * @Route("/retrieve{id}", name="retrieve")
      */
-    public function retrieve($id)
+    public function retrieve(int $id)
     {
         $d = $this->repo->find($id);
         $d->setPosted(false);
