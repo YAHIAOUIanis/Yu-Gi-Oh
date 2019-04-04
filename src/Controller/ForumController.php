@@ -71,7 +71,8 @@ class ForumController extends AbstractController
     public function forum()
     {
         return $this->render('forum/forum.html.twig', [
-            'topics' => $this->repo->findAll()
+            'topics' => $this->repo->findAll(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -123,5 +124,18 @@ class ForumController extends AbstractController
 
         return $this->redirectToRoute('forum');
 
+    }
+
+    /**
+     * @Route("/deleteTopic{id}", name="deleteTopic")
+     */
+    public function deleteTopic($id)
+    {
+        $topic = $this->repo->find($id);
+
+        $this->manager->remove($topic);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('forum');
     }
 }

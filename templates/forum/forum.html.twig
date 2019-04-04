@@ -22,7 +22,12 @@
 
             {% for topic in topics %}
             <tr>
-                <th scope="row"><a href="{{ path('showTopic', {'id': topic.id}) }}">{{ topic.subject }}</a></th>
+                <th scope="row">
+                    <a href="{{ path('showTopic', {'id': topic.id}) }}">{{ topic.subject }}</a>
+                    {% if topic.user == user %}
+                    <a href="{{ path('deleteTopic', {'id': topic.id}) }}" class="card-link"><i class="fas fa-trash"></i></a>
+                    {% endif %}
+                </th>
                 <td>{{ topic.replies }}</td>
                 <td>By {{ topic.user }}</td>
                 <td>#</td>
