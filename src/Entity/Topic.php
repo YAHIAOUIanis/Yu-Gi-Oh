@@ -75,7 +75,6 @@ class Topic
     public function addComment(Comment $comment): self
     {
         $this->comment[] = $comment;
-        $this->replies++;
 
         return $this;
     }
