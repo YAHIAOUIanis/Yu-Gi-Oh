@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Titre{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+        <a href="{{ path('createTopic') }}"><button class="btn btn-outline-danger">Create a topic</button></a>
+        <br>
+        <br>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Subject</th>
+                <th scope="col">Replies</th>
+                <th scope="col">Author</th>
+                <th scope="col">Last comment</th>
+            </tr>
+            </thead>
+
+            {% for topic in topics %}
+            <tr>
+                <th scope="row"><a href="{{ path('showTopic', {'id': topic.id}) }}">{{ topic.subject }}</a></th>
+                <td>#</td>
+                <td>By {{ topic.user }}</td>
+                <td>#</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+    {% include ('inc/footer.html.twig') %}
+{% endblock %}

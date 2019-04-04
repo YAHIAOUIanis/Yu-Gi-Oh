@@ -26,11 +26,17 @@ class User extends BaseUser
      */
     private $likes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Topic", mappedBy="user")
+     */
+    private $topics;
+
+
     public function __construct()
     {
         parent::__construct();
         $this->likes = new ArrayCollection();
-        // your own logic
+        $this->topics = new ArrayCollection();
     }
 
     /**
@@ -63,4 +69,20 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function addTopic(Topic $topic): self
+    {
+        $this->topics[] = $topic;
+
+        return $this;
+    }
+
+    public function removeTopic(Topic $topic): self
+    {
+        $this->topics->removeElement($topic);
+
+        return $this;
+    }
+
+
 }

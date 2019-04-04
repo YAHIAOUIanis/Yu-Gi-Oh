@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Forum{% endblock %}
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+
+        {{ form_row(form.Subject, {'attr' : {'placeholder': "Enter the subject"}}) }}
+
+        {{ form_row(form.Title, {'attr' : {'placeholder': "Enter your first comment"}}) }}
+
+        <button class="btn btn-outline-danger">Create a topic</button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Titre{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+
+            {{ topic.subject }}
+        
+    </div>
+    {% include ('inc/footer.html.twig') %}
+{% endblock %}
