@@ -16,6 +16,7 @@
                 <th scope="col">Replies</th>
                 <th scope="col">Author</th>
                 <th scope="col">Last comment</th>
+                <th scope="col">Published at</th>
             </tr>
             </thead>
 
@@ -25,6 +26,7 @@
                 <td>{{ topic.replies }}</td>
                 <td>By {{ topic.user }}</td>
                 <td>#</td>
+                <td>{{ topic.createdAt|date("m/d/Y") }}</td>
             </tr>
             {% endfor %}
 
