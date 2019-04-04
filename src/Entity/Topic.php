@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;;
 
 /**
@@ -45,11 +46,6 @@ class Topic
      */
     private $user;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $replies;
-
     public function __construct() {
         $this->comment = new ArrayCollection();
     }
@@ -71,7 +67,7 @@ class Topic
         return $this;
     }
 
-    public function getComment(): ?ArrayCollection
+    public function getComment()
     {
         return $this->comment;
     }
@@ -120,15 +116,8 @@ class Topic
         return $this;
     }
 
-    public function setReplies(): self
-    {
-        $this->replies = 0;
-
-        return $this;
-    }
-
     public function getReplies(): ?int
     {
-        return $this->replies;
+        return $this->comment->count();
     }
 }

@@ -6,8 +6,29 @@
     <br>
     <div class="container">
 
-            {{ topic.subject }}
-        
+        Topic Subject: {{ topic.subject }}<br>
+        Author: {{ topic.user }}<br>
+        Topic title: {{ topic.title }}<br>
+
+        Comments:<br>
+        {% for comment in topic.comment %}
+
+            {{ comment.component }} by {{ comment.user }}
+
+            {% if comment.user == user %}
+                <a href="{{ path('deleteComment', {'id': comment.id}) }}" class="card-link"><i class="fas fa-trash"></i></a>
+            {% endif %}
+            <br>
+        {% endfor %}
+
+        {{ form_start(formComments) }}
+
+        {{ form_row(formComments.component, {'attr' : {'placeholder': "Enter your comment for this topic"}}) }}
+
+        <button type="submit" class="btn btn-outline-danger">Post this comment</button>
+
+        {{ form_end(formComments) }}
+
     </div>
     {% include ('inc/footer.html.twig') %}
 {% endblock %}

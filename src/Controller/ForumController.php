@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Topic;
-use App\Form\CreateTopicType;
+use App\Repository\CommentRepository;
 use App\Repository\TopicRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +24,16 @@ class ForumController extends AbstractController
      */
     private $manager;
 
-    public function __construct(TopicRepository $repo, ObjectManager $manager)
+    /**
+     * @var CommentRepository
+     */
+    private $comment_repo;
+
+    public function __construct(TopicRepository $repo, ObjectManager $manager, CommentRepository $comment_repo)
     {
         $this->repo = $repo;
         $this->manager = $manager;
+        $this->comment_repo = $comment_repo;
     }
 
     /**
@@ -47,7 +54,6 @@ class ForumController extends AbstractController
         {
                 $new_topic->setUser($this->getUser());
                 $new_topic->setCreatedAt(new \DateTime());
-                $new_topic->setReplies();
 
                 $this->manager->persist($new_topic);
                 $this->manager->flush();
@@ -72,13 +78,50 @@ class ForumController extends AbstractController
     /**
      * @Route("/showTopic{id}", name="showTopic")
      */
-    public function showTopic($id)
+    public function showTopic($id, Request $query)
     {
         $topic = $this->repo->find($id);
 
+        $comment = new Comment();
+
+        $form = $this->createFormBuilder($comment)
+            ->add('component')
+            ->getForm();
+
+        $form->handleRequest($query);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $comment->setUser($this->getUser());
+            $comment->setCreatedAt(new \DateTime());
+
+            $topic->addComment($comment);
+
+            $this->manager->persist($comment);
+            $this->manager->flush();
+        }
+
         return $this->render('showTopic/showTopic.html.twig', [
-            'topic' => $topic
+            'topic' => $topic,
+            'comments' => $topic->getComment(),
+            'formComments' => $form->createView(),
+            'user' => $this->getUser()
         ]);
     }
 
+    /**
+     * @Route("/deleteComment{id}", name="deleteComment")
+     */
+    public function deleteComment($id)
+    {
+        $comment = $this->comment_repo->find($id);
+
+
+        $this->manager->remove($comment);
+        $this->manager->flush();
+
+
+        return $this->redirectToRoute('forum');
+
+    }
 }

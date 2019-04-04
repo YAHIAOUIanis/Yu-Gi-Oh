@@ -22,7 +22,7 @@
             {% for topic in topics %}
             <tr>
                 <th scope="row"><a href="{{ path('showTopic', {'id': topic.id}) }}">{{ topic.subject }}</a></th>
-                <td>#</td>
+                <td>{{ topic.replies }}</td>
                 <td>By {{ topic.user }}</td>
                 <td>#</td>
             </tr>

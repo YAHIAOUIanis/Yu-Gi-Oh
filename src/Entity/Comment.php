@@ -22,6 +22,17 @@ class Comment
      */
     private $user;
 
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $component;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -41,5 +52,29 @@ class Comment
     public function setUser($user): void
     {
         $this->user = $user;
+    }
+
+    public function setComponent($component): self
+    {
+        $this->component = $component;
+
+        return $this;
+    }
+
+    public function getComponent()
+    {
+        return $this->component;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }
