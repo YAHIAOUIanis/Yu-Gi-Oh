@@ -5,22 +5,45 @@
 {% block body %}
     <br>
     <div class="container">
-
-        Topic Subject: {{ topic.subject }}<br>
-        Author: {{ topic.user }}<br>
-        Topic title: {{ topic.title }}<br>
-
-        Comments:<br>
-        {% for comment in topic.comment %}
-
-            {{ comment.component }} by {{ comment.user }}
-
-            {% if comment.user == user %}
-                <a href="{{ path('deleteComment', {'id': comment.id}) }}" class="card-link"><i class="fas fa-trash"></i></a>
+        <div class="text-center"><h1>{{ topic.title|upper }}</h1></div>
+        <div><p>Subject :</p><h5>{{ topic.subject|capitalize }}</h5></div>
+        <div class="text-right">
+            {% if topic.user == user %}
+                <p>Created by <strong>ME</strong></p>
+            {% else %}
+                <p>Created by <strong>{{ user | upper }}</strong></p>
             {% endif %}
-            <br>
-        {% endfor %}
-
+        </div>
+        <div>
+            <h4 class="text-center">Comments:</h4>
+            {% for comment in topic.comment %}
+                <div class="list-group-item">
+                    {% if comment.user == user %}
+                        <div class="text-right">
+                            <a href="{{ path('deleteComment', {'id': comment.id}) }}" class="card-link">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="text-success col-md-2">
+                            {% if comment.user == user %}
+                                <p><strong>ME</strong> :</p>
+                            {% else %}
+                                <p><strong>{{ user | upper }}</strong> :</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9 bg-success border-left overflow-auto">
+                            <p>{{ comment.component|capitalize }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11 text-right">At {{ comment.createdAt|date("H:i  M/d/y") }}</div>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
         {{ form_start(formComments) }}
 
         {{ form_row(formComments.component, {'attr' : {'placeholder': "Enter your comment for this topic"}}) }}

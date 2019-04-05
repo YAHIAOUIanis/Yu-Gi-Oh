@@ -117,13 +117,9 @@ class ForumController extends AbstractController
     {
         $comment = $this->comment_repo->find($id);
 
-
         $this->manager->remove($comment);
         $this->manager->flush();
-
-
         return $this->redirectToRoute('forum');
-
     }
 
     /**
