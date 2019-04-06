@@ -7,6 +7,17 @@
     <div class="container row mx-auto">
         <div class="col-xs-12 col-md-8">
             <h1>{{ deck.deckName|capitalize  }}'s card list </h1>
+            <div class="text-left">
+                <a href="{{ path('like', {'idDeck': deck.id}) }}" class="btn btn-link js-like border border-success">
+                    {% if deck.isLikedByUser(app.user) %}
+                        <i class="fas fa-thumbs-up"></i>
+                    {% else %}
+                        <i class="far fa-thumbs-up"></i>
+                    {% endif %}
+                    <span class="js-likes">{{ deck.likes | length }}</span>
+                    <span class="js-label">Likes</span>
+                </a>
+            </div>
         </div>
         {% if user == deck.user %}
         <div class="col-xs-6 col-md-4 text-right">
@@ -15,18 +26,28 @@
             {% else %}
                     <button class="btn btn-danger" onclick="window.location='{{ path('retrieve', {'id': deck.id}) }}'">Do not post</button>
             {% endif %}
-        </div>        
-        <div class="container text-center">
-            <form action="{{ path('deckBuilder.rename', {'idDeck': deck.id}) }}" method="POST">
-                    <h4>Rename your deck</h4>
-                        <input required placeholder="Rename this deck" type="text" name="rename" minlength="3">
-                        <button type="submit" class="btn btn-outline-success">Rename</button>
-            </form>
-            <br>
-         </div>
+        </div>
         {% endif %}
     </div>
+
+    {% if user == deck.user %}
+    <div class="container text-center">
+        <form action="{{ path('deckBuilder.rename', {'idDeck': deck.id}) }}" method="POST">
+            <h4>Rename your deck</h4>
+            <input required placeholder="Rename this deck" type="text" name="rename" minlength="3">
+            <button type="submit" class="btn btn-outline-success">Rename</button>
+        </form>
+        <br>
+    </div>
+    {% endif %}
+
+
     <div class="container list-group-item text-center">
+        {% if deck.user != user %}
+        <div class="text-right">
+            <p>Shared by <strong>{{ deck.user }}</strong></p>
+        </div>
+        {% endif %}
         <div class="row mx-auto">
         {% for card in cards %}
             <div class="col-xs-6 col-sm-3">
@@ -45,7 +66,30 @@
         {% endfor %}
         </div>
     </div>
+    <script>
+        function onClickBtnLike(event){
+            event.preventDefault();//pour que l'event sera sur ce composant
+            const url = this.href;//
+            const spanCount = this.querySelector('span.js-likes');
+            const icon = this.querySelector('i');
+            //gérer les requetes http ajax
+            axios.get(url).then(function(response){
+                spanCount.textContent = response.data.likes;
 
+                if(icon.classList.contains('fas')){
+                    icon.classList.replace('fas','far');
+                } else {
+                    icon.classList.replace('far','fas');
+                }
+            }).catch(function (error){
+                window.alert("An error occured, please try again later");
+            });
+        }
+
+        document.querySelectorAll('a.js-like').forEach(function(link){
+            link.addEventListener('click', onClickBtnLike);
+        })
+    </script>
 {% include ('inc/footer.html.twig') %}
 
 {% endblock %}

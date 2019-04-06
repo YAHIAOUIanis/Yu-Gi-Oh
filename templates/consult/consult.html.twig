@@ -46,10 +46,11 @@
 </div>
 <script>
     function onClickBtnLike(event){
-        event.preventDefault();
-        const url = this.href;
+        event.preventDefault();//pour que l'event sera sur ce composant
+        const url = this.href;//
         const spanCount = this.querySelector('span.js-likes');
-        const icon = this.querySelector('i')
+        const icon = this.querySelector('i');
+        //gérer les requetes http ajax
         axios.get(url).then(function(response){
             spanCount.textContent = response.data.likes;
 
