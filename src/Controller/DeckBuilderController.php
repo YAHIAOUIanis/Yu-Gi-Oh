@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Cards;
 use App\Entity\PostLike;
 use App\Repository\CardsRepository;
 use App\Repository\DeckRepository;
@@ -39,7 +38,13 @@ class DeckBuilderController extends AbstractController
      */
     private $like_repo;
 
-
+    /**
+     * DeckBuilderController constructor.
+     * @param DeckRepository $repo
+     * @param ObjectManager $manager
+     * @param CardsRepository $cards_repo
+     * @param PostLikeRepository $like_repo
+     */
     public function __construct(DeckRepository $repo, ObjectManager $manager, CardsRepository $cards_repo, PostLikeRepository $like_repo)
     {
         $this->repo = $repo;
@@ -49,12 +54,15 @@ class DeckBuilderController extends AbstractController
     }
 
     /**
+     * createDeck allows to create a deck and display the decks created by the current user
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      * @Route("/deckBuilder", name="deckBuilder")
      */
     public function createDeck(Request $request)
     {
         $deck = new Deck();
-
         $form = $this->createFormBuilder($deck)
                      ->add('deckName')
                      ->getForm();
@@ -65,11 +73,9 @@ class DeckBuilderController extends AbstractController
                 $deck->setCreatedAt(new \DateTime());
             }
             $deck->setPosted(false);
-
             $this->manager->persist($deck);
             $this->manager->flush();
         }
-
         //recover current user's decks
         $decks = $this->repo->findAll();
         $decksOfUserCurrent=array();
@@ -78,21 +84,22 @@ class DeckBuilderController extends AbstractController
                 $decksOfUserCurrent[]=$d;
             }
         }
-        
+
         return $this->render('deckBuilder/deckBuilder.html.twig', [
             'formDeckBuilder' => $form->createView(),
             'decks' => $decksOfUserCurrent
         ]);
     }
 
-
     /**
+     * recovering the deck corresponds to the identifier passed in parameter
      * @Route("/deck{id}", name="deckBuilder.show")
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(int $id)
     {
         $d = $this->repo->find($id);
-
         return $this->render('showDeck/showDeck.html.twig', [
             'deck' => $d,
             'cards' => $d->getCard(),
@@ -101,9 +108,11 @@ class DeckBuilderController extends AbstractController
     }
 
     /**
-     * @param Cards $c
-     * @return mixed
+     * add a card to a deck
      * @Route("/addCard{id}", name="addCard")
+     * @param int $id
+     * @param Request $query
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function add(int $id, Request $query)
     {
@@ -116,17 +125,19 @@ class DeckBuilderController extends AbstractController
     }
 
     /**
+     * remove a card from a deck
      * @Route("/removeCard{i}-{idd}", name="deckBuilder.removeCard")
+     * @param int $i
+     * @param int $idd
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function remove(int $i, int $idd)
     {
         $d = $this->repo->find($idd);
         $c = $this->cards_repo->find($i);
         $d->removeCard($c);
-
         $this->manager->persist($d);
         $this->manager->flush();
-
         return $this->render('showDeck/showDeck.html.twig', [
             'deck' => $d,
             'cards' => $d->getCard(),
@@ -135,12 +146,14 @@ class DeckBuilderController extends AbstractController
     }
 
     /**
+     * remove a like from a deck
      * @Route("/deleteDeck{id}", name="deckBuilder.delete")
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(int $id)
     {
         $d = $this->repo->find($id);
-
         $likes = $this->like_repo;
         foreach($likes as $like)
         {
@@ -152,12 +165,15 @@ class DeckBuilderController extends AbstractController
         }
         $this->manager->remove($d);
         $this->manager->flush();
-
         return $this->redirectToRoute('deckBuilder');
     }
 
     /**
+     * rename a deck
      * @Route("/rename{idDeck}", name="deckBuilder.rename")
+     * @param int $idDeck
+     * @param Request $query
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function rename(int $idDeck, Request $query)
     {
@@ -165,7 +181,6 @@ class DeckBuilderController extends AbstractController
         $d->setDeckName($query->request->get('rename'));
         $this->manager->persist($d);
         $this->manager->flush();
-
         return $this->render('showDeck/showDeck.html.twig', [
             'deck' => $d,
             'cards' => $d->getCard(),
@@ -174,7 +189,10 @@ class DeckBuilderController extends AbstractController
     }
 
     /**
+     * make the deck private
      * @Route("/retrieve{id}", name="retrieve")
+     * @param int $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function retrieve(int $id)
     {
@@ -182,15 +200,17 @@ class DeckBuilderController extends AbstractController
         $d->setPosted(false);
         $this->manager->persist($d);
         $this->manager->flush();
-
         return $this->redirectToRoute('deckBuilder.show', [
             'id' => $id
         ]);
     }
 
     /**
-
+     * like a deck
      * @Route("like{idDeck}", name="like")
+     * @param int $idDeck
+     * @param PostLikeRepository $like_repo
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function like(int $idDeck, PostLikeRepository $like_repo)
     {
@@ -201,10 +221,8 @@ class DeckBuilderController extends AbstractController
                 'deck' => $deck,
                 'user' => $user
             ]);
-
             $this->manager->remove($like);
             $this->manager->flush();
-
             //I send informations to json in order to have the number of likes
             return $this->json([
                 'code' => 200,
@@ -212,13 +230,11 @@ class DeckBuilderController extends AbstractController
                 'likes' => $like_repo->count(['deck' => $deck])
             ], 200);
         }
-
         $like = new PostLike();
         $like->setDeck($deck);
         $like->setUser($user);
         $this->manager->persist($like);
         $this->manager->flush();
-
         return $this->json([
             'code' => 200,
             'message' => 'Like added',
